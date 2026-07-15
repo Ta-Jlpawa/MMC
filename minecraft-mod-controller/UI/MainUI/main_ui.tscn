@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://ct67f4xwqwmdw"]
+
+[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://Assets/Theme/default_theme.tres" id="1_1nvy6"]
+[ext_resource type="Script" uid="uid://cwplyaaxsmbd6" path="res://UI/MainUI/main_ui.gd" id="2_1yvig"]
+[ext_resource type="Script" uid="uid://cpgf3v1laknpg" path="res://UI/MainUI/test_button_1.gd" id="3_ky12q"]
+[ext_resource type="PackedScene" uid="uid://dctcel3gjode8" path="res://UI/ToolUI/tool_ui.tscn" id="4_g3lw5"]
+
+[node name="MainUI" type="Control" unique_id=1371510718]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1nvy6")
+script = ExtResource("2_1yvig")
+
+[node name="快速开始UI" type="Control" parent="." unique_id=1012459348]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="快速开始UI" unique_id=376169237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="快速开始UI" unique_id=5937165]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 66.0
+offset_right = 603.0
+offset_bottom = 113.0
+theme_override_font_sizes/normal_font_size = 34
+bbcode_enabled = true
+text = "Minecraft_Mod_Controller"
+fit_content = true
+scroll_active = false
+
+[node name="TestButton_执行C++" type="Button" parent="快速开始UI" unique_id=1998187710]
+layout_mode = 0
+offset_left = 910.0
+offset_top = 77.0
+offset_right = 1109.0
+offset_bottom = 131.0
+text = "测试按钮"
+script = ExtResource("3_ky12q")
+
+[node name="模组方案UI" type="Control" parent="." unique_id=592380173]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="模组仓库UI" type="Control" parent="." unique_id=956045708]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="侧边栏" type="Control" parent="." unique_id=97339882]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 81.0
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="侧边栏" unique_id=1949100319]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="侧边栏/PanelContainer" unique_id=2055075054]
+layout_mode = 2
+theme_override_constants/margin_top = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="侧边栏/PanelContainer/MarginContainer" unique_id=1506344771]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="快速开始" type="Button" parent="侧边栏/PanelContainer/MarginContainer/VBoxContainer" unique_id=2090704727]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "快速开始"
+
+[node name="模组方案" type="Button" parent="侧边栏/PanelContainer/MarginContainer/VBoxContainer" unique_id=129054638]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "模组方案"
+
+[node name="模组仓库" type="Button" parent="侧边栏/PanelContainer/MarginContainer/VBoxContainer" unique_id=852080450]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "模组仓库"
+
+[node name="工具栏" parent="." unique_id=1590763843 instance=ExtResource("4_g3lw5")]
+layout_mode = 1
+
+[connection signal="pressed" from="快速开始UI/TestButton_执行C++" to="快速开始UI/TestButton_执行C++" method="_execute_cpp"]
