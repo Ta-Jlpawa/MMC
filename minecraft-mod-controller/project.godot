@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*uid://fpqdp3dbbhop"
+GameConfig="*uid://3ksrigjytsd0"
 
 [display]
 
