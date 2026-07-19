@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 
 ## 测试_执行C++
 func _execute_cpp() -> void:
-	var output: Array
-	OS.execute(GameManager.base_dir.path_join("Tool/Minecraft_Mod_Controller.exe"), [], output)
-	print(output)
+	UIManager.show_warning_popup(GameConfig.WarningType.DESTRUCTIVE, "毁灭性错误")
+	#var output: Array
+	#OS.execute(GameManager.base_dir.path_join("Tool/Minecraft_Mod_Controller.exe"), [], output)
+	#print(output)

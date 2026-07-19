@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://i3ka4d43ttp3"]
 
-[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://Assets/Theme/default_theme.tres" id="1_ccawq"]
-[ext_resource type="Script" uid="uid://dhcc71odckh5w" path="res://UI/PopupUI/WarningPopup/warning_popup.gd" id="2_7rjlm"]
+[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://assets/theme/default_theme.tres" id="1_ccawq"]
+[ext_resource type="Script" uid="uid://dhcc71odckh5w" path="res://ui/popup/WarningPopup/warning_popup.gd" id="2_7rjlm"]
 
 [node name="WarningPopupUI" type="Control" unique_id=1923373750 node_paths=PackedStringArray("title_label", "content_label")]
 custom_minimum_size = Vector2(500, 300)
@@ -34,6 +34,7 @@ layout_mode = 2
 
 [node name="标题" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=617264752]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 25
 text = "INFO"
 
@@ -54,3 +55,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "确认"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=434245016]
+custom_minimum_size = Vector2(30, 1)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 42.0
+offset_right = 47.0
+offset_bottom = 43.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+color = Color(0.3798995, 0.8356753, 7.70092e-07, 1)

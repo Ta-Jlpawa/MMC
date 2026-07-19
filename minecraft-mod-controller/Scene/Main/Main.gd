@@ -1,7 +1,8 @@
 extends Node
 
 
-var base_dir:String = ""
+@export var popup_root: CanvasLayer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,17 +1,21 @@
 [gd_scene format=3 uid="uid://bt6ikmllmscvo"]
 
-[ext_resource type="Script" uid="uid://bx4ygvcr36nhe" path="res://Scene/Main/Main.gd" id="1_c5csi"]
-[ext_resource type="PackedScene" uid="uid://ct67f4xwqwmdw" path="res://UI/MainUI/main_ui.tscn" id="2_pw3jx"]
+[ext_resource type="Script" uid="uid://bx4ygvcr36nhe" path="res://scene/main/Main.gd" id="1_0imob"]
+[ext_resource type="PackedScene" uid="uid://ct67f4xwqwmdw" path="res://ui/main/main_ui.tscn" id="2_6vuhr"]
 
-[node name="Main" type="Node2D" unique_id=567690785]
-script = ExtResource("1_c5csi")
+[node name="Main" type="Node2D" unique_id=567690785 node_paths=PackedStringArray("popup_root")]
+script = ExtResource("1_0imob")
+popup_root = NodePath("弹窗层")
 
-[node name="MainScreen" parent="." unique_id=1371510718 instance=ExtResource("2_pw3jx")]
-custom_minimum_size = Vector2(1152, 648)
+[node name="UI层" type="CanvasLayer" parent="." unique_id=998044573]
+
+[node name="MainUI" parent="UI层" unique_id=1371510718 instance=ExtResource("2_6vuhr")]
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1150.0
+offset_bottom = 650.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="弹窗层" type="CanvasLayer" parent="." unique_id=311816412]

@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bb7ugaf2qgtnp"]
+
+[ext_resource type="Script" uid="uid://dngsqixq58ao2" path="res://ui/start/start_ui.gd" id="1_esd36"]
+[ext_resource type="Script" uid="uid://cpgf3v1laknpg" path="res://ui/main/test_button_1.gd" id="2_ra4qg"]
+[ext_resource type="Script" uid="uid://7mgow6w3t30" path="res://ui/start/has_modcfg_list.gd" id="3_bf8ho"]
+[ext_resource type="PackedScene" uid="uid://ctayltqa2dmf4" path="res://ui_object/mod_config_obj/mod_config.tscn" id="3_ra4qg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0e8e"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.5294118)
+corner_radius_bottom_right = 10
+corner_detail = 10
+
+[node name="快速开始UI" type="Control" unique_id=1046370208]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_esd36")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=561640672]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o0e8e")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=71159838]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 38.0
+offset_right = 513.0
+offset_bottom = 85.0
+theme_override_font_sizes/normal_font_size = 34
+bbcode_enabled = true
+text = "Minecraft_Mod_Controller"
+fit_content = true
+scroll_active = false
+
+[node name="TestButton_执行C++" type="Button" parent="." unique_id=1753543635]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 51.0
+offset_right = 989.0
+offset_bottom = 105.0
+text = "测试按钮"
+script = ExtResource("2_ra4qg")
+
+[node name="已有配置列表" type="ScrollContainer" parent="." unique_id=133530626]
+layout_mode = 0
+offset_left = 325.0
+offset_top = 135.0
+offset_right = 1083.0
+offset_bottom = 573.0
+script = ExtResource("3_bf8ho")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="已有配置列表" unique_id=814783696]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModConfigObj" parent="已有配置列表/VBoxContainer" unique_id=40857236 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[node name="ModConfigObj2" parent="已有配置列表/VBoxContainer" unique_id=90194318 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[node name="ModConfigObj3" parent="已有配置列表/VBoxContainer" unique_id=1681677352 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[node name="ModConfigObj4" parent="已有配置列表/VBoxContainer" unique_id=1132508795 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[node name="ModConfigObj5" parent="已有配置列表/VBoxContainer" unique_id=1849297824 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[node name="ModConfigObj6" parent="已有配置列表/VBoxContainer" unique_id=1630091967 instance=ExtResource("3_ra4qg")]
+layout_mode = 2
+
+[connection signal="pressed" from="TestButton_执行C++" to="TestButton_执行C++" method="_execute_cpp"]

@@ -2,6 +2,7 @@ extends Node
 
 ## 警告类型
 enum WarningType{
+	DESTRUCTIVE,
 	ALERT, ## 严重错误
 	ERROR, ## 错误
 	WARNING, ## 警告

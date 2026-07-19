@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dhsnxao8pptt4"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=111232149]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=781032942]
+layout_mode = 2
+theme_override_constants/margin_top = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1218217564]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="快速开始" type="Button" parent="MarginContainer/VBoxContainer" unique_id=431404793]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "快速开始"
+clip_text = true
+
+[node name="模组方案" type="Button" parent="MarginContainer/VBoxContainer" unique_id=498357842]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "模组方案"
+clip_text = true
+
+[node name="模组仓库" type="Button" parent="MarginContainer/VBoxContainer" unique_id=484017235]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "模组仓库"
+clip_text = true

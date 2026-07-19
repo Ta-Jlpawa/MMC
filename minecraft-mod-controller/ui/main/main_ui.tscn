@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://ct67f4xwqwmdw"]
+
+[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://assets/theme/default_theme.tres" id="1_bfhgs"]
+[ext_resource type="Script" uid="uid://cwplyaaxsmbd6" path="res://ui/main/main_ui.gd" id="2_ilbcb"]
+[ext_resource type="PackedScene" uid="uid://dctcel3gjode8" path="res://ui/tool/tool_ui.tscn" id="3_xkpu4"]
+[ext_resource type="PackedScene" uid="uid://bb7ugaf2qgtnp" path="res://ui/start/start_ui.tscn" id="4_piv6q"]
+[ext_resource type="PackedScene" uid="uid://dhsnxao8pptt4" path="res://ui/sidebar/sidebar_ui.tscn" id="5_5kgsd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yaab"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.5294118)
+corner_radius_bottom_left = 10
+corner_detail = 10
+
+[node name="MainUI" type="Control" unique_id=1371510718]
+custom_minimum_size = Vector2(1150, 650)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bfhgs")
+script = ExtResource("2_ilbcb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=131460566]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="工具栏" parent="VBoxContainer" unique_id=2020171187 instance=ExtResource("3_xkpu4")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1299930389]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="快速开始UI" parent="VBoxContainer/VBoxContainer" unique_id=1046370208 instance=ExtResource("4_piv6q")]
+layout_mode = 2
+
+[node name="模组方案UI" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=592380173]
+visible = false
+layout_mode = 2
+
+[node name="模组仓库UI" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=956045708]
+visible = false
+layout_mode = 2
+
+[node name="侧边栏" parent="." unique_id=2132782299 instance=ExtResource("5_5kgsd")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 31.0
+offset_right = 33.0
+offset_bottom = 650.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_4yaab")

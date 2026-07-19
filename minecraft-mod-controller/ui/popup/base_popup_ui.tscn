@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://d0su12rthfrwe"]
+[gd_scene format=3 uid="uid://dxiytp37y84d1"]
 
-[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://Assets/Theme/default_theme.tres" id="1_63mgv"]
-[ext_resource type="Script" uid="uid://cxcoypf3ovpvw" path="res://UI/PopupUI/CreateNewConfigPopup/create_new_config_popup.gd" id="2_1orcj"]
+[ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://assets/theme/default_theme.tres" id="1_ahpd7"]
+[ext_resource type="Script" uid="uid://dxmhyy21ukecq" path="res://ui/popup/BasePopupUI.gd" id="2_y407i"]
 
-[node name="CreateNewConfigPopupUI" type="Control" unique_id=1923373750]
+[node name="BasePopupUI" type="Control" unique_id=1923373750]
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 500.0
 offset_bottom = 300.0
-theme = ExtResource("1_63mgv")
-script = ExtResource("2_1orcj")
+theme = ExtResource("1_ahpd7")
+script = ExtResource("2_y407i")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=802846100]
 layout_mode = 1
