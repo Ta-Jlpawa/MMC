@@ -18,3 +18,7 @@ func set_popup_data(warn_type: GameConfig.WarningType, content_data: String) -> 
 func update_ui():
 	title_label.text = GameConfig.WarningType.find_key(warning_type)
 	content_label.text = content
+
+
+func _on_waringpopup_pressed() -> void:
+	UIManager.popup_finish.emit()

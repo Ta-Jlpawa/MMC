@@ -1,17 +1,17 @@
 extends Node
 
 var popup_root: CanvasLayer = null
+var popup_stack: Array[BasePopupUI] = []
+
+signal popup_finish() ## 顶部弹窗被关闭时触发
+signal popup_choose(data: String) ## 顶部弹窗的选项被选择时触发
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.popup_finish.connect(close_top_popup)
+	
 	popup_root = get_tree().current_scene.popup_root
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 
 func show_warning_popup(warn_type: GameConfig.WarningType, content: String) -> void:
@@ -28,3 +28,9 @@ func show_warning_popup(warn_type: GameConfig.WarningType, content: String) -> v
 	popup.offset_top = -texture_size.y / 2
 	popup.offset_bottom = texture_size.y / 2
 	popup_root.add_child(popup)
+	popup_stack.append(popup)
+
+
+func close_top_popup() -> void:
+	var popup: BasePopupUI = popup_stack.pop_back()
+	popup.queue_free()

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ctayltqa2dmf4"]
 
+[ext_resource type="Script" uid="uid://c3i237tu51pdf" path="res://ui_object/mod_config_obj/mod_config.gd" id="1_pb0uh"]
 [ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="1_ypefs"]
 
 [node name="ModConfigObj" type="Control" unique_id=40857236]
@@ -8,6 +9,7 @@ layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+script = ExtResource("1_pb0uh")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=947557065]
 layout_mode = 1

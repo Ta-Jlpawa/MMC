@@ -66,3 +66,5 @@ offset_bottom = 43.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
 color = Color(0.3798995, 0.8356753, 7.70092e-07, 1)
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_waringpopup_pressed"]
