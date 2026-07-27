@@ -1,14 +1,22 @@
 [gd_scene format=3 uid="uid://i3ka4d43ttp3"]
 
 [ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://assets/theme/default_theme.tres" id="1_ccawq"]
-[ext_resource type="Script" uid="uid://dhcc71odckh5w" path="res://ui/popup/WarningPopup/warning_popup.gd" id="2_7rjlm"]
+[ext_resource type="Script" uid="uid://dhcc71odckh5w" path="res://ui/popup/warning_popup/warning_popup.gd" id="2_7rjlm"]
 
 [node name="WarningPopupUI" type="Control" unique_id=1923373750 node_paths=PackedStringArray("title_label", "content_label")]
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 500.0
-offset_bottom = 300.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_ccawq")
 script = ExtResource("2_7rjlm")
 title_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/标题")

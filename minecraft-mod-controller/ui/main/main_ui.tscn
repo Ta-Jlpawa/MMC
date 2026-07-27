@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dctcel3gjode8" path="res://ui/tool/tool_ui.tscn" id="3_xkpu4"]
 [ext_resource type="PackedScene" uid="uid://bb7ugaf2qgtnp" path="res://ui/start/start_ui.tscn" id="4_piv6q"]
 [ext_resource type="PackedScene" uid="uid://dhsnxao8pptt4" path="res://ui/sidebar/sidebar_ui.tscn" id="5_5kgsd"]
+[ext_resource type="PackedScene" uid="uid://b7fouswpsluji" path="res://ui/mod_config/mod_config_ui.tscn" id="5_ilbcb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yaab"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.5294118)
@@ -41,7 +42,7 @@ size_flags_vertical = 3
 [node name="快速开始UI" parent="VBoxContainer/VBoxContainer" unique_id=1046370208 instance=ExtResource("4_piv6q")]
 layout_mode = 2
 
-[node name="模组方案UI" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=592380173]
+[node name="ModConfigUI" parent="VBoxContainer/VBoxContainer" unique_id=758910518 instance=ExtResource("5_ilbcb")]
 visible = false
 layout_mode = 2
 
@@ -55,7 +56,7 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_top = 31.0
-offset_right = 33.0
+offset_right = 89.0
 offset_bottom = 650.0
 grow_horizontal = 1
 grow_vertical = 1

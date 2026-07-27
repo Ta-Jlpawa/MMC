@@ -1,15 +1,19 @@
 [gd_scene format=3 uid="uid://ctayltqa2dmf4"]
 
-[ext_resource type="Script" uid="uid://c3i237tu51pdf" path="res://ui_object/mod_config_obj/mod_config.gd" id="1_pb0uh"]
-[ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="1_ypefs"]
+[ext_resource type="Script" uid="uid://c3i237tu51pdf" path="res://ui_object/mod_config_obj/mod_config_obj.gd" id="1_2y5dw"]
+[ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="2_vwedu"]
 
-[node name="ModConfigObj" type="Control" unique_id=40857236]
+[node name="ModConfigObj" type="Control" unique_id=40857236 node_paths=PackedStringArray("title_label", "content_label", "mcver_label", "modver_label")]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-script = ExtResource("1_pb0uh")
+script = ExtResource("1_2y5dw")
+title_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/标题")
+content_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/描述")
+mcver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MC版本")
+modver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/模组加载器版本")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=947557065]
 layout_mode = 1
@@ -32,7 +36,7 @@ layout_mode = 2
 [node name="图标" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1433568085]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture = ExtResource("1_ypefs")
+texture = ExtResource("2_vwedu")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1781192311]

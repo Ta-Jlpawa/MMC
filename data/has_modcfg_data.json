@@ -1,9 +1,17 @@
 [
     {
-        "name": "Test1"
+        "name": "Test1",
+        "description": "测试",
+        "mc_version": "1.21.1",
+        "modloader_version": "NeoForge",
+        "icon_path": ""
     },
     {
-        "name": "Test2"
+        "name": "Test2",
+        "description": "测试111",
+        "mc_version": "1.21.11",
+        "modloader_version": "NeoForge",
+        "icon_path": ""
     }
 
 ]
