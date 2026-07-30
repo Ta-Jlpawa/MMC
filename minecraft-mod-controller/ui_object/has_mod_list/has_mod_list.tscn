@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://db2r40fvi1t7f"]
+
+[ext_resource type="Script" uid="uid://cjfd1u726aer7" path="res://ui_object/has_mod_list/has_mod_list.gd" id="1_cshce"]
+[ext_resource type="PackedScene" uid="uid://bpininyxqju68" path="res://ui_object/mod_information_obj/mod_information_obj.tscn" id="2_pmovf"]
+
+[node name="已有模组列表" type="ScrollContainer" unique_id=366519974 node_paths=PackedStringArray("generateRootNode")]
+offset_right = 758.0
+offset_bottom = 438.0
+script = ExtResource("1_cshce")
+modObjStyle = ExtResource("2_pmovf")
+generateRootNode = NodePath("PanelContainer/VBoxContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=171526975]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1827512158]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bb7ugaf2qgtnp" path="res://ui/start/start_ui.tscn" id="4_piv6q"]
 [ext_resource type="PackedScene" uid="uid://dhsnxao8pptt4" path="res://ui/sidebar/sidebar_ui.tscn" id="5_5kgsd"]
 [ext_resource type="PackedScene" uid="uid://b7fouswpsluji" path="res://ui/mod_config/mod_config_ui.tscn" id="5_ilbcb"]
+[ext_resource type="PackedScene" uid="uid://ccnbn2a3ywgu2" path="res://ui/mod_repository/mod_repository_ui.tscn" id="6_xkpu4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yaab"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.5294118)
 corner_radius_bottom_left = 10
 corner_detail = 10
 
-[node name="MainUI" type="Control" unique_id=1371510718]
+[node name="MainUI" type="Control" unique_id=1371510718 node_paths=PackedStringArray("sideBar", "all_ui")]
 custom_minimum_size = Vector2(1150, 650)
 layout_mode = 3
 anchors_preset = 15
@@ -22,6 +23,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_bfhgs")
 script = ExtResource("2_ilbcb")
+sideBar = NodePath("侧边栏")
+all_ui = [NodePath("VBoxContainer/VBoxContainer/快速开始UI"), NodePath("VBoxContainer/VBoxContainer/ModConfigUI"), NodePath("VBoxContainer/VBoxContainer/模组仓库UI")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=131460566]
 layout_mode = 1
@@ -46,7 +49,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="模组仓库UI" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=956045708]
+[node name="模组仓库UI" parent="VBoxContainer/VBoxContainer" unique_id=978533941 instance=ExtResource("6_xkpu4")]
 visible = false
 layout_mode = 2
 

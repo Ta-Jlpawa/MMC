@@ -1,7 +1,8 @@
 extends Node
 
 var base_dir: String = "" ## 外部文件全局路径
-var modcfg_data: Array[ModConfigData] = []
+var modcfg_data: Array[ModConfigData] = [] ## 所有模组配置信息
+var mod_data: Array[ModData] = [] ## 所有模组信息
 
 
 func _ready() -> void:
@@ -21,5 +22,7 @@ func _get_outside_file_path() -> void:
 
 
 func _get_modcfg_data() -> void:
-	modcfg_data = ModConfigData.load_json_to_res(GameManager.base_dir.path_join("data/has_modcfg_data.json"))
+	modcfg_data = ModConfigData.load_json_to_res(base_dir.path_join("data/has_modcfg_data.json"))
+	mod_data = ModData.load_json_to_res(base_dir.path_join("data/has_mod_data.json"))
 	print("INFO: 读取modcfg_data: %s" % [modcfg_data])
+	print("INFO: 读取mod_data: %s" % [mod_data])

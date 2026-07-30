@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://dhsnxao8pptt4"]
 
-[node name="PanelContainer" type="PanelContainer" unique_id=111232149]
+[ext_resource type="Script" uid="uid://dski0sltgmwft" path="res://ui/sidebar/sidebar_ui.gd" id="1_erj8j"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=111232149 node_paths=PackedStringArray("all_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_erj8j")
+all_button = [NodePath("MarginContainer/VBoxContainer/快速开始"), NodePath("MarginContainer/VBoxContainer/模组方案"), NodePath("MarginContainer/VBoxContainer/模组仓库")]
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=781032942]
 layout_mode = 2
@@ -18,17 +22,21 @@ theme_override_constants/separation = 10
 [node name="快速开始" type="Button" parent="MarginContainer/VBoxContainer" unique_id=431404793]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
+toggle_mode = true
+button_pressed = true
 text = "快速开始"
 clip_text = true
 
 [node name="模组方案" type="Button" parent="MarginContainer/VBoxContainer" unique_id=498357842]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
+toggle_mode = true
 text = "模组方案"
 clip_text = true
 
 [node name="模组仓库" type="Button" parent="MarginContainer/VBoxContainer" unique_id=484017235]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
+toggle_mode = true
 text = "模组仓库"
 clip_text = true
