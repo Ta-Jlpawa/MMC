@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0bqpi7fjad47" path="res://ui/mod_config/mod_config_ui.gd" id="1_8bguv"]
 [ext_resource type="PackedScene" uid="uid://cx8dgpxtmjxlu" path="res://ui_object/has_mod_config_list/has_mod_config_list.tscn" id="1_uyhkg"]
-[ext_resource type="PackedScene" uid="uid://d0su12rthfrwe" path="res://ui/popup/create_new_config_popup/create_new_config_popup.tscn" id="3_b5iy2"]
+[ext_resource type="PackedScene" uid="uid://d0su12rthfrwe" path="res://ui_object/popup/create_new_config_popup/create_new_config_popup.tscn" id="3_b5iy2"]
 
 [node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("createNewConfigPopupUI", "hasModConfigList")]
 custom_minimum_size = Vector2(1150, 620)

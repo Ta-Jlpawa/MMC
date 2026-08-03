@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0su12rthfrwe"]
 
 [ext_resource type="Theme" uid="uid://8mh44bkkqk3k" path="res://assets/theme/default_theme.tres" id="1_dibrw"]
-[ext_resource type="Script" uid="uid://cxcoypf3ovpvw" path="res://ui/popup/create_new_config_popup/create_new_config_popup.gd" id="2_ehcyn"]
+[ext_resource type="Script" uid="uid://cxcoypf3ovpvw" path="res://ui_object/popup/create_new_config_popup/create_new_config_popup.gd" id="2_ehcyn"]
 
 [node name="CreateNewConfigPopupUI" type="Control" unique_id=1923373750]
 custom_minimum_size = Vector2(700, 450)

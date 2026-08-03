@@ -1,3 +1,4 @@
+extends RefCounted
 ## 加载JSON文件的类(自定义类)
 class_name JsonLoader
 

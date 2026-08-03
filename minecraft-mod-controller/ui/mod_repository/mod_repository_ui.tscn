@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ccnbn2a3ywgu2"]
 
 [ext_resource type="Script" uid="uid://ct3b271oyqcru" path="res://ui/mod_repository/mod_repository_ui.gd" id="1_3dffy"]
+[ext_resource type="PackedScene" uid="uid://cbm86oo8obl5k" path="res://ui_object/popup/file_copy_progress_popup/progress_popup.tscn" id="2_b6rm6"]
 [ext_resource type="PackedScene" uid="uid://db2r40fvi1t7f" path="res://ui_object/has_mod_list/has_mod_list.tscn" id="2_vfei8"]
 
 [node name="模组仓库UI" type="Control" unique_id=978533941]
@@ -8,6 +9,7 @@ custom_minimum_size = Vector2(1150, 620)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3dffy")
+fileCopyProgressPopup = ExtResource("2_b6rm6")
 
 [node name="Label" type="Label" parent="." unique_id=85411821]
 layout_mode = 0
@@ -56,9 +58,12 @@ theme_override_constants/separation = 10
 [node name="Button" type="Button" parent="操作面板/MarginContainer/HBoxContainer" unique_id=1778062367]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "添加方案"
+text = "添加模组"
 
 [node name="Button2" type="Button" parent="操作面板/MarginContainer/HBoxContainer" unique_id=343181821]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "删除方案"
+text = "删除模组"
+
+[connection signal="pressed" from="操作面板/MarginContainer/HBoxContainer/Button" to="." method="_on_add_mod"]
+[connection signal="pressed" from="操作面板/MarginContainer/HBoxContainer/Button2" to="." method="_on_remove_mod"]
