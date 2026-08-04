@@ -4,7 +4,8 @@
         "author": "Tester",
         "description": "测试",
         "mc_version": "1.21.1",
-        "modloader_version": "NeoForge",
+        "mod_version": "1.11.11",
+        "modloader": "NeoForge",
         "icon_path": ""
     }
 

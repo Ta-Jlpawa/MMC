@@ -7,7 +7,8 @@ var name: String
 var author: String
 var description: String
 var mc_version: String
-var modloader_version: String
+var mod_version: String
+var modloader: String
 var icon_path: String
 
 
