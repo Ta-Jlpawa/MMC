@@ -10,6 +10,7 @@ func _ready() -> void:
 	_get_outside_file_path()
 	_get_data()
 	print("INFO: GameManager Ready")
+	#JsonWriter.save_res_to_json(get_execpath("data/has_modcfg_data.json"), modcfg_data)
 
 
 ## 通过相对路径，获取要操作的文件的完整路径
@@ -32,12 +33,14 @@ func set_setting(key: String, value: Variant) -> void:
 
 ## 保存程序设置
 func save_setting() -> void:
-	JsonWriter.save_res_to_json(get_execpath("data/settings.json"), settings)
+	#JsonWriter.save_res_to_json(get_execpath("data/settings.json"), settings)
+	pass
 
 
 func reset_setting() -> void:
 	settings = GameConfig.setting_copy
-	JsonWriter.save_res_to_json(get_execpath("data/settings.json"), settings)
+	#JsonWriter.save_res_to_json(get_execpath("data/settings.json"), settings)
+	pass
 	
 
 ## 加载时获取外部文件夹全局路径(仅执行一次)

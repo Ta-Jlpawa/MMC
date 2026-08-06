@@ -36,7 +36,19 @@ func add_mod() -> void:
 	file_copier.start_copy(select_file, GameManager.get_execpath("modrepo"))
 	var copy_state: bool = await file_copier.copy_finish
 	file_copier.queue_free()
-	if not copy_state: return
+	if not copy_state:
+		printerr("ERROR: 异常:文件复制失败!")
+		return
+	
+	# 获取模组信息
+	var file_name: Array[String] = []
+	var mod_data: Array[ModData] = []
+	for i in select_file:
+		file_name.append(i.split('/')[-1])
+	for i in file_name:
+		mod_data.append(ModReader.read_mod_information(GameManager.get_execpath("modrepo/".path_join(i))))
+	
+	# 写入模组信息到 data/has_mod_data.json
 	
 
 ## 移除模组配置

@@ -11,7 +11,6 @@ static func read_mod_information(path: String) -> ModData:
 		return null
 	
 	var res: PackedByteArray = []
-	var content: String = ""
 	var mod_data: ModData = null
 	if reader.file_exists(GameConfig.NEOFORGE_MOD_INFORMATION_PATH): # NeoForge
 		res = reader.read_file(GameConfig.NEOFORGE_MOD_INFORMATION_PATH)
@@ -27,14 +26,26 @@ static func read_mod_information(path: String) -> ModData:
 
 static func parse_mod_toml_neoforge(data: PackedByteArray) -> ModData:
 	var content: String = data.get_string_from_utf8()
-	var mod_data: ModData = null
+	var mod_data: ModData = ModData.new()
 	var result = Toml.parse_string(content)
+	
+	var mods: Dictionary = Toml.use_index_find_dict_in_arraytable(result, "mods", 0)
+	var minecraft_data: Dictionary = Toml.use_kv_find_dict_in_arraytable(result, "dependencies.\"create\"", "modId", "minecraft")
+	mod_data.name = mods["displayName"]
+	mod_data.author = mods["authors"]
+	mod_data.description = mods["description"]
+	mod_data.mc_version = minecraft_data["versionRange"]
+	mod_data.mod_version = mods["version"]
+	
+	mod_data.modloader = "NeoForge"
+	mod_data.icon_path = ""
+	
 	return mod_data
 
 
 static func parse_mod_json_fabric(data: PackedByteArray) -> ModData:
 	var content: String = data.get_string_from_utf8()
-	var mod_data: ModData = null
+	var mod_data: ModData = ModData.new()
 	var result = JSON.parse_string(content)
 	if result == null:
 		printerr("ERROR: 模组信息JSON解析失败")
