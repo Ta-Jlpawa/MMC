@@ -41,7 +41,16 @@ func reset_setting() -> void:
 	settings = GameConfig.setting_copy
 	#JsonWriter.save_res_to_json(get_execpath("data/settings.json"), settings)
 	pass
-	
+
+
+func add_mod_data(data: Variant) -> void:
+	if data is ModData:
+		mod_data.append(data)
+	elif data is Array[ModData]:
+		mod_data.append_array(data)
+	else:
+		printerr("ERROR: [GameManager] 试图添加的模组信息有误")
+		
 
 ## 加载时获取外部文件夹全局路径(仅执行一次)
 func _get_outside_file_path() -> void:

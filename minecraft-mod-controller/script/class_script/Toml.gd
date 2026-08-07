@@ -48,7 +48,8 @@ static func parse_value(value: String) -> Variant:
 
 
 static func get_key_and_value(line: String) -> Array:
-	var data: PackedStringArray = line.split(" = ")
+	var data: PackedStringArray = line.split("=")
+	if data.size() < 2: return ["null", "null"] # 此处在测试时应当删除，以便用来兼容更多的模组
 	var key = data[0].strip_edges()
 	var value = data[1].strip_edges()
 	value = parse_value(value)

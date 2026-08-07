@@ -8,7 +8,7 @@ class_name HasModList
 
 
 func _ready() -> void:
-	generate_modcfg_object(GameManager.mod_data)
+	pass
 
 
 ## 动态生成 模组信息 UI组件，组件信息应当来源于 GameManager.mod_data

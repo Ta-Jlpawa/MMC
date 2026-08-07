@@ -3,7 +3,7 @@ extends RefCounted
 class_name JsonWriter
 
 
-## 1. 将 Resource 转换为 Dictionary (可直接被 JSON.stringify 序列化)
+## 将 Resource 转换为 Dictionary (可被 JSON.stringify 序列化)[br]
 ## 支持嵌套的 Resource、Array 和 Dictionary
 static func resource_to_dict(res: Resource) -> Dictionary:
 	if not res:
@@ -21,28 +21,11 @@ static func resource_to_dict(res: Resource) -> Dictionary:
 			
 	return dict
 
-## 内部方法：递归序列化处理嵌套的 Resource、Array 和 Dictionary
-static func _serialize_value(val: Variant) -> Variant:
-	if val is Resource:
-		return resource_to_dict(val)
-	elif val is Array:
-		var new_arr := []
-		for item in val:
-			new_arr.append(_serialize_value(item))
-		return new_arr
-	elif val is Dictionary:
-		var new_dict := {}
-		for k in val:
-			new_dict[k] = _serialize_value(val[k])
-		return new_dict
-	else:
-		return val
 
-
-## 2. 将数据写入 JSON 文件 (完全覆盖原内容)
-## @param path: 写入路径 (如 "user://data.json")
-## @param data: 要写入的数据 (Array, Dictionary, 或 Resource)
-## @param indent: 缩进样式，默认用制表符 "\t" 美化排版，设为 "" 表示压缩格式
+## 将数据写入 JSON 文件 (完全覆盖原内容)[br]
+## path: 写入路径[br]
+## data: 要写入的数据 (Array, Dictionary, 或 Resource)[br]
+## indent: 缩进样式，默认用制表符 "\t" 美化排版，设为 "" 表示压缩格式
 static func write_json(path: String, data: Variant, indent: String = "\t") -> Error:
 	# 如果传入的是 Resource，自动转换
 	if data is Resource:
@@ -51,7 +34,7 @@ static func write_json(path: String, data: Variant, indent: String = "\t") -> Er
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	if not file:
 		var err := FileAccess.get_open_error()
-		printerr("[JsonWriter] 打开文件进行写入失败: ", path, " 错误码: ", err)
+		printerr("ERROR: [JsonWriter] 打开文件进行写入失败: ", path, " 错误码: ", err)
 		return err
 		
 	var json_string := JSON.stringify(data, indent)
@@ -60,9 +43,9 @@ static func write_json(path: String, data: Variant, indent: String = "\t") -> Er
 	return OK
 
 
-## 3. 将数据追加到 JSON 文件中 (不覆盖原内容)
-## - 如果原 JSON 是列表 [ ... ]：传入单条数据会 append 进列表，传入列表会合并列表
-## - 如果原 JSON 是字典 { ... }：传入字典会进行键值合并 (同名 key 会被新数据覆盖)
+## 将数据追加到 JSON 文件中 (不覆盖原内容)[br]
+## 如果原 JSON 是列表 [ ... ]：传入单条数据会 append 进列表，传入列表会合并列表[br]
+## 如果原 JSON 是字典 { ... }：传入字典会进行键值合并 (同名 key 会被新数据覆盖)
 static func append_json(path: String, new_data: Variant, indent: String = "\t") -> Error:
 	# 如果追加的是 Resource，自动转换为 Dictionary
 	if new_data is Resource:
@@ -83,7 +66,7 @@ static func append_json(path: String, new_data: Variant, indent: String = "\t") 
 				if parse_err == OK:
 					existing_data = json.data
 				else:
-					printerr("[JsonWriter] 原文件解析失败，路径: ", path, " 错误: ", json.get_error_message())
+					printerr("ERROR: [JsonWriter] 原文件解析失败，路径: ", path, " 错误: ", json.get_error_message())
 					return parse_err
 
 	# 2. 根据原文件结构与新数据类型进行合并
@@ -106,11 +89,30 @@ static func append_json(path: String, new_data: Variant, indent: String = "\t") 
 			existing_data.merge(new_data, true)
 			final_data = existing_data
 		else:
-			printerr("[JsonWriter] 追加失败：原 JSON 为字典格式，但传入的新数据非字典类型。")
+			printerr("ERROR: [JsonWriter] 追加失败：原 JSON 为字典格式，但传入的新数据非字典类型。")
 			return ERR_INVALID_DATA
 	else:
-		printerr("[JsonWriter] 追加失败：原文件顶层既不是列表也不是字典。")
+		printerr("ERROR: [JsonWriter] 追加失败：原文件顶层既不是列表也不是字典。")
 		return ERR_INVALID_DATA
 
 	# 3. 重新写入文件
 	return write_json(path, final_data, indent)
+
+
+## 内部方法：递归序列化处理嵌套的 Resource、Array 和 Dictionary[br]
+## 被 func resource_to_dict(res: Resource) -> Dictionary 调用
+static func _serialize_value(val: Variant) -> Variant:
+	if val is Resource:
+		return resource_to_dict(val)
+	elif val is Array:
+		var new_arr := []
+		for item in val:
+			new_arr.append(_serialize_value(item))
+		return new_arr
+	elif val is Dictionary:
+		var new_dict := {}
+		for k in val:
+			new_dict[k] = _serialize_value(val[k])
+		return new_dict
+	else:
+		return val

@@ -2,11 +2,12 @@ extends Control
 
 
 @export var fileCopyProgressPopup: PackedScene
+@export var hasModList: HasModList
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	hasModList.generate_modcfg_object(GameManager.mod_data)
 
 
 func _on_add_mod():
@@ -34,12 +35,18 @@ func add_mod() -> void:
 	var file_copier: FileCopyProgressPopup = fileCopyProgressPopup.instantiate()
 	self.add_child(file_copier)
 	file_copier.start_copy(select_file, GameManager.get_execpath("modrepo"))
-	var copy_state: bool = await file_copier.copy_finish
+	var copy_state: FileCopyProgressPopup.COPY_STATE = await file_copier.copy_finish
 	file_copier.queue_free()
-	if not copy_state:
-		printerr("ERROR: 异常:文件复制失败!")
-		return
-	
+	match copy_state:
+		FileCopyProgressPopup.COPY_STATE.NOCHANGE:
+			printerr("INFO: 文件没有发生改变")
+			return
+		FileCopyProgressPopup.COPY_STATE.ERROR:
+			printerr("ERROR: 异常:文件复制失败!")
+			return
+		_:
+			pass
+			
 	# 获取模组信息
 	var file_name: Array[String] = []
 	var mod_data: Array[ModData] = []
@@ -49,6 +56,16 @@ func add_mod() -> void:
 		mod_data.append(ModReader.read_mod_information(GameManager.get_execpath("modrepo/".path_join(i))))
 	
 	# 写入模组信息到 data/has_mod_data.json
+	var mod_data_json = []
+	for i in mod_data:
+		mod_data_json.append(JsonWriter.resource_to_dict(i))
+	JsonWriter.append_json(GameManager.get_execpath("data/has_mod_data.json"), mod_data_json)
+	print("INFO: 模组数据保存") #TODO: 修改json文件格式，因此需要更改解析器
+	
+	GameManager.add_mod_data(mod_data)
+	
+	# 刷新界面
+	hasModList.reload_modcfg_object(GameManager.mod_data)
 	
 
 ## 移除模组配置

@@ -13,6 +13,10 @@ const CHUNK_SIZE := 65536
 
 ## 开始批量复制
 func start_copy(source_paths: Array[String], target_dir: String) -> void:
+	if source_paths.is_empty(): 
+		batch_completed.emit.call_deferred()
+		_finish_thread.call_deferred()
+		return
 	if _copy_thread and _copy_thread.is_started():
 		printerr("已有复制任务正在进行中！")
 		return

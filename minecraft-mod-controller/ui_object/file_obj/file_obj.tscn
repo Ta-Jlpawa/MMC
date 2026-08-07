@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cj7eterc1h8mn"]
+
+[ext_resource type="Script" uid="uid://xvr1u5mun60c" path="res://ui_object/file_obj/file_obj.gd" id="1_i685s"]
+
+[node name="FileObj" type="Control" unique_id=1032047249 node_paths=PackedStringArray("button", "file_name_label", "file_path_label")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_i685s")
+button = NodePath("Button")
+file_name_label = NodePath("Button/MarginContainer/VBoxContainer/Label")
+file_path_label = NodePath("Button/MarginContainer/VBoxContainer/Label2")
+
+[node name="Button" type="Button" parent="." unique_id=2070368645]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Button" unique_id=1493730286]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Button/MarginContainer" unique_id=486968207]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Button/MarginContainer/VBoxContainer" unique_id=1334491450]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 15
+text = "文件名称"
+
+[node name="Label2" type="Label" parent="Button/MarginContainer/VBoxContainer" unique_id=2080339139]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "文件路径"

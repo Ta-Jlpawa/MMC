@@ -30,13 +30,13 @@ static func parse_mod_toml_neoforge(data: PackedByteArray) -> ModData:
 	var result = Toml.parse_string(content)
 	
 	var mods: Dictionary = Toml.use_index_find_dict_in_arraytable(result, "mods", 0)
-	var minecraft_data: Dictionary = Toml.use_kv_find_dict_in_arraytable(result, "dependencies.\"create\"", "modId", "minecraft")
-	mod_data.name = mods["displayName"]
-	mod_data.author = mods["authors"]
-	mod_data.description = mods["description"]
-	mod_data.mc_version = minecraft_data["versionRange"]
-	mod_data.mod_version = mods["version"]
+	var minecraft_data: Dictionary = Toml.use_kv_find_dict_in_arraytable(result, "dependencies.%s" % mods["modId"], "modId", "minecraft")
 	
+	mod_data.name = mods.get("displayName", mods.get("modId", "未知模组"))
+	mod_data.author = mods.get("authors", "未知作者")
+	mod_data.description = mods.get("description", "")
+	mod_data.mc_version = minecraft_data.get("versionRange", "未知版本") # TODO: 实现根据文件名称猜测mc版本的逻辑
+	mod_data.mod_version = mods.get("version", "未知模组版本") # TODO: 实现根据文件名称猜测mod版本的逻辑
 	mod_data.modloader = "NeoForge"
 	mod_data.icon_path = ""
 	
@@ -51,11 +51,11 @@ static func parse_mod_json_fabric(data: PackedByteArray) -> ModData:
 		printerr("ERROR: 模组信息JSON解析失败")
 		return null
 	
-	mod_data.name = result["name"]
-	mod_data.author = ", ".join(result["authors"])
-	mod_data.description = result["description"]
-	mod_data.mc_version = result["depends"]["minecraft"]
-	mod_data.mod_version = result["version"]
+	mod_data.name = result.get("name", result.get("id", "未知模组"))
+	mod_data.author = ", ".join(result.get("authors", ["未知作者"]))
+	mod_data.description = result.get("description", "")
+	mod_data.mc_version = result.get("depends", {}).get("minecraft", "未知版本")
+	mod_data.mod_version = result.get("version", "未知模组版本")
 	mod_data.modloader = "Fabric"
 	mod_data.icon_path = ""
 	

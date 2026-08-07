@@ -1,12 +1,11 @@
-[
-    {
-        "name": "Test1",
-        "author": "Tester",
-        "description": "测试",
-        "mc_version": "1.21.1",
-        "mod_version": "1.11.11",
-        "modloader": "NeoForge",
-        "icon_path": ""
-    }
-
-]
+{
+	"Test.jar": {
+		"author": "Tester",
+		"description": "测试",
+		"icon_path": "",
+		"mc_version": "1.21.1",
+		"mod_version": "1.11.11",
+		"modloader": "NeoForge",
+		"name": "Test1"
+	}
+}
