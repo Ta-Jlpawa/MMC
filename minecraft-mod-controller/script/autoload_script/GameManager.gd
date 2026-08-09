@@ -2,7 +2,7 @@ extends Node
 
 var base_dir: String = "" ## 外部文件全局路径
 var modcfg_data: Array[ModConfigData] = [] ## 所有模组配置信息
-var mod_data: Array[ModData] = [] ## 所有模组信息
+var mod_data: Dictionary[String, ModData] = {} ## 所有模组信息
 var settings: Dictionary = {} ## 设置类信息
 
 
@@ -43,14 +43,21 @@ func reset_setting() -> void:
 	pass
 
 
-func add_mod_data(data: Variant) -> void:
-	if data is ModData:
-		mod_data.append(data)
-	elif data is Array[ModData]:
-		mod_data.append_array(data)
-	else:
-		printerr("ERROR: [GameManager] 试图添加的模组信息有误")
-		
+func add_mod_data(key: String, value: ModData) -> void:
+	mod_data[key] = value
+
+
+func append_mod_data(data: Dictionary) -> void:
+	mod_data.merge(data, true)
+
+
+func save_mod_data():
+	var mod_data_json: Dictionary[String, Dictionary] = {}
+	for i in mod_data:
+		var value = mod_data[i]
+		mod_data_json[i] = JsonWriter.resource_to_dict(value)
+	JsonWriter.append_json(get_execpath("data/has_mod_data.json"), mod_data_json)
+	print("INFO: 模组数据保存")
 
 ## 加载时获取外部文件夹全局路径(仅执行一次)
 func _get_outside_file_path() -> void:

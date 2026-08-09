@@ -14,8 +14,9 @@ const FABRIC_MOD_INFORMATION_PATH: String = "fabric.mod.json" ## Fabric模组信
 const NEOFORGE_MOD_INFORMATION_PATH: String = "META-INF/neoforge.mods.toml" ## Neoforge模组信息文件在模组中的位置
 ## 默认设置模版
 const SETTING_COPY: Dictionary = {
-	"is_first_execute": true,
-	"file_dialog_last_dir_mod": ""
+	"moddata_parse": "", # 模组信息获取方式 "NOPARSE"不获取 "FILEPARSE"解析文件获取 "HTTPGET"访问外部API获取
+	"is_first_execute": true, # 是否是第一次运行
+	"file_dialog_last_dir_mod": "" # 模组选择框最后成功选择的位置
 }
 
 

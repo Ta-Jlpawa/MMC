@@ -2,12 +2,9 @@ extends Resource
 ## 模组配置信息
 class_name ModConfigData
 
+var infomation: ModConfigInformation = null
+var has_mod_list: PackedStringArray = []
 
-var name: String
-var description: String
-var mc_version: String
-var modloader_version: String
-var icon_path: String
 
 
 ## 读取一个json文件并转换为指定类型资源

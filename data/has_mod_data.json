@@ -1,11 +1,26 @@
 {
+	"AmbientSounds_NEOFORGE_v6.3.8_mc1.21.1.jar": {
+		"infomation": {
+			"author": "CreativeMD",
+			"description": "'''Expands minecraft's ambient sounds.'''",
+			"icon_path": "",
+			"mc_version": "[1.21.1,1.22)",
+			"mod_version": "6.3.8",
+			"modloader": "NeoForge",
+			"name": "AmbientSounds"
+		}
+		
+	},
 	"Test.jar": {
-		"author": "Tester",
-		"description": "测试",
-		"icon_path": "",
-		"mc_version": "1.21.1",
-		"mod_version": "1.11.11",
-		"modloader": "NeoForge",
-		"name": "Test1"
+		"infomation": {
+			"author": "Tester",
+			"description": "测试",
+			"icon_path": "",
+			"mc_version": "1.21.1",
+			"mod_version": "1.11.11",
+			"modloader": "NeoForge",
+			"name": "Test1"
+		}
+		
 	}
 }

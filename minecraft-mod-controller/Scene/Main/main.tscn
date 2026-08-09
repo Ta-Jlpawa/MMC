@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bx4ygvcr36nhe" path="res://scene/main/Main.gd" id="1_0imob"]
 [ext_resource type="PackedScene" uid="uid://ct67f4xwqwmdw" path="res://ui/main/main_ui.tscn" id="2_6vuhr"]
+[ext_resource type="Script" uid="uid://c7f64ds6qvx7m" path="res://script/node_script/HttpRequestNode.gd" id="3_6vuhr"]
 
 [node name="Main" type="Node2D" unique_id=567690785 node_paths=PackedStringArray("popup_root")]
 script = ExtResource("1_0imob")
@@ -19,3 +20,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="弹窗层" type="CanvasLayer" parent="." unique_id=311816412]
+
+[node name="HttpRequestNode" type="Node" parent="." unique_id=967204745]
+script = ExtResource("3_6vuhr")
+metadata/_custom_type_script = "uid://c7f64ds6qvx7m"

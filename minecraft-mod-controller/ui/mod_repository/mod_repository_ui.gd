@@ -27,7 +27,6 @@ func add_mod() -> void:
 	self.add_child(file_dialog)
 	file_dialog.open_file_dialog("选择将要添加的模组文件", ["*.jar;模组文件 (*.jar)"], ["jar"], DisplayServer.FileDialogMode.FILE_DIALOG_MODE_OPEN_FILES)
 	var select_file: PackedStringArray = await file_dialog.file_selected
-	print("INFO: 用户选择 %s" % [select_file])
 	file_dialog.queue_free()
 	if select_file.is_empty(): return
 	
@@ -47,27 +46,47 @@ func add_mod() -> void:
 		_:
 			pass
 			
-	# 获取模组信息
-	var file_name: Array[String] = []
-	var mod_data: Array[ModData] = []
-	for i in select_file:
-		file_name.append(i.split('/')[-1])
+	# 获取并更新模组信息
+	var mod_data: Dictionary[String, ModData] = {}
+	var file_name: PackedStringArray = FileOperator.get_file_name(select_file)
 	for i in file_name:
-		mod_data.append(ModReader.read_mod_information(GameManager.get_execpath("modrepo/".path_join(i))))
+		mod_data[i] = ModReader.read_mod_information(GameManager.get_execpath("modrepo/".path_join(i)))
+		
+	GameManager.append_mod_data(mod_data)
 	
 	# 写入模组信息到 data/has_mod_data.json
-	var mod_data_json = []
-	for i in mod_data:
-		mod_data_json.append(JsonWriter.resource_to_dict(i))
-	JsonWriter.append_json(GameManager.get_execpath("data/has_mod_data.json"), mod_data_json)
-	print("INFO: 模组数据保存") #TODO: 修改json文件格式，因此需要更改解析器
-	
-	GameManager.add_mod_data(mod_data)
+	GameManager.save_mod_data()
 	
 	# 刷新界面
 	hasModList.reload_modcfg_object(GameManager.mod_data)
+	print("INFO: 界面刷新")
 	
 
 ## 移除模组配置
 func remove_mod() -> void:
-	pass
+	# 选择文件
+	var file_dialog: CustomFileDialog = CustomFileDialog.new()
+	self.add_child(file_dialog)
+	file_dialog.open_file_dialog("选择将要删除的模组文件", ["*.jar;模组文件 (*.jar)"], ["jar"], DisplayServer.FileDialogMode.FILE_DIALOG_MODE_OPEN_FILES)
+	var select_file: PackedStringArray = await file_dialog.file_selected
+	file_dialog.queue_free()
+	if select_file.is_empty(): return
+	# TODO: 此处应当使用更好的文件选择模式，防止用户选择意料之外的文件
+	
+	# 移除文件
+	FileOperator.remove_files(select_file)
+	
+	# 获取并移除模组信息
+	var file_name: PackedStringArray = FileOperator.get_file_name(select_file)
+	for i in file_name:
+		if GameManager.mod_data.has(i):
+			GameManager.mod_data.erase(i)
+		else:
+			printerr("ERROR: 移除模组 %s 信息失败，模组不存在" % [i])
+	
+	# 写入模组信息到 data/has_mod_data.json
+	GameManager.save_mod_data()
+	
+	# 刷新界面
+	hasModList.reload_modcfg_object(GameManager.mod_data)
+	print("INFO: 界面刷新")
