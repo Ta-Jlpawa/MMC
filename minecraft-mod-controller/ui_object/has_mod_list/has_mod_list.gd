@@ -16,7 +16,7 @@ func generate_modcfg_object(data: Dictionary[String, ModData]) -> void:
 	for i in data:
 		var value = data[i]
 		var obj: ModObject = modObjStyle.instantiate()
-		obj.set_data(value.name, value.author, value.description, value.mc_version, value.mod_version)
+		obj.set_data(value.infomation.name, value.infomation.author, value.infomation.description, value.infomation.mc_version, value.infomation.mod_version)
 		generateRootNode.add_child(obj)
 
 

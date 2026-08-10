@@ -9,7 +9,6 @@
 			"modloader": "NeoForge",
 			"name": "AmbientSounds"
 		}
-		
 	},
 	"Test.jar": {
 		"infomation": {
@@ -21,6 +20,5 @@
 			"modloader": "NeoForge",
 			"name": "Test1"
 		}
-		
 	}
 }

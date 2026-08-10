@@ -1,9 +1,13 @@
 extends Node
 
-var base_dir: String = "" ## 外部文件全局路径
-var modcfg_data: Array[ModConfigData] = [] ## 所有模组配置信息
-var mod_data: Dictionary[String, ModData] = {} ## 所有模组信息
-var settings: Dictionary = {} ## 设置类信息
+## 外部文件全局路径，启动时计算
+var base_dir: String = ""
+## 所有模组配置信息，可有同名配置，同ID配置最多仅可有一个，格式为 <配置文件ID>:<配置信息>
+var modcfg_data: Dictionary[String, ModConfigData] = {}
+## 所有模组信息，同名模组最多仅可有一个，格式为 <模组文件名>:<模组信息>
+var mod_data: Dictionary[String, ModData] = {}
+## 设置类信息
+var settings: Dictionary = {}
 
 
 func _ready() -> void:
@@ -73,9 +77,9 @@ func _get_outside_file_path() -> void:
 func _get_data() -> void:
 	settings = JsonLoader.load_json_to_data(get_execpath("data/settings.json"))
 	print("INFO: 读取settings: %s" % [settings])
-	modcfg_data = ModConfigData.load_json_to_res(get_execpath("data/has_modcfg_data.json"))
+	modcfg_data = ModConfigData.load_json_to_globalres(get_execpath("data/has_modcfg_data.json"))
 	print("INFO: 读取modcfg_data: %s" % [modcfg_data])
-	mod_data = ModData.load_json_to_res(get_execpath("data/has_mod_data.json"))
+	mod_data = ModData.load_json_to_globalres(get_execpath("data/has_mod_data.json"))
 	print("INFO: 读取mod_data: %s" % [mod_data])
 	
 	

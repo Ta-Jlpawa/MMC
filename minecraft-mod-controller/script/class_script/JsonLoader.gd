@@ -4,11 +4,16 @@ class_name JsonLoader
 
 ## 读取一个json文件并转换为字典或列表
 static func load_json_to_data(path: String) -> Variant:
-	var file = FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		push_error("无法打开 JSON 文件: %s" % path)
-		return {}
+	if not FileAccess.file_exists(path):
+		printerr("[JsonReader] 文件不存在: ", path)
+		return null
+	var file := FileAccess.open(path, FileAccess.READ)
+	if not file:
+		printerr("[JsonReader] 打开文件失败: ", path)
+		return null
+		
 	var result = JSON.parse_string(file.get_as_text())
+	file.close()
 	if result == null:
 		push_error("JSON 解析失败")
 		return {}
@@ -20,73 +25,12 @@ static func load_json_to_data(path: String) -> Variant:
 		return data
 
 
-## 读取一个json文件并转换为指定类型资源
-static func load_json_to_res(path: String, type) -> Variant:
-	var file = FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		push_error("无法打开 JSON 文件: %s" % path)
-		return null
-	var result = JSON.parse_string(file.get_as_text())
-	if result == null:
-		push_error("JSON 解析失败")
-		return null
-	if result is Array:
-		var data: Array = dict_array_to_res(result, type)
-		return data
-	else:
-		var data: Dictionary = dict_to_res(result, type)
-		return data
-
-
-## 读取一个字典并转换为指定类型的资源
-static func dict_to_res(dict: Dictionary, type) -> Variant:
-	var resource = type.new()
-	for key in dict:
-		if resource.get(key) != null:
-			resource.set(key, dict[key])
-	return resource
-
-
-## 读取一个字典列表并转换为指定类型的资源列表
-static func dict_array_to_res(array: Array, type) -> Array:
-	var resource_array: Array = []
-	for i in array:
-		var resource = type.new()
-		for key in i:
-			if resource.get(key) != null:
-				resource.set(key, i[key])
-		resource_array.append(resource)
-	return resource_array
-
-
-
-
-
-
 ## 从 JSON 文件中读取数据并递归转换为指定的 Resource 对象
-## @param path: JSON 文件路径 (例如 "user://config.json")
-## @param target: 可以是 Resource 的脚本 (如 Config)、类名字符串，或者是已初始化的 Resource 实例
-## @return: 填充后的 Resource 对象；失败时返回 null
+## path: JSON 文件路径
+## target: 可以是 Resource 的脚本 (如 Config)、类名字符串，或者是已初始化的 Resource 实例
+## return: 填充后的 Resource 对象；失败时返回 null
 static func load_resource_from_json(path: String, target: Variant) -> Resource:
-	if not FileAccess.file_exists(path):
-		printerr("[JsonReader] 文件不存在: ", path)
-		return null
-
-	var file := FileAccess.open(path, FileAccess.READ)
-	if not file:
-		printerr("[JsonReader] 打开文件失败: ", path)
-		return null
-
-	var json_string := file.get_as_text()
-	file.close()
-
-	var json := JSON.new()
-	var error := json.parse(json_string)
-	if error != OK:
-		printerr("[JsonReader] JSON 解析失败 [第 %d 行]: %s" % [json.get_error_line(), json.get_error_message()])
-		return null
-
-	var data = json.data
+	var data = load_json_to_data(path)
 	if not data is Dictionary:
 		printerr("[JsonReader] 顶级 JSON 数据必须是字典，才能映射到 Resource 属性！")
 		return null
@@ -217,3 +161,44 @@ static func _extract_array_element_class(hint_string: String) -> String:
 	if ":" in hint_string:
 		return hint_string.split(":")[-1]
 	return hint_string
+
+
+
+
+## 读取一个json文件并转换为指定类型资源(过时)
+#static func load_json_to_res(path: String, type) -> Variant:
+	#var file = FileAccess.open(path, FileAccess.READ)
+	#if file == null:
+		#push_error("无法打开 JSON 文件: %s" % path)
+		#return null
+	#var result = JSON.parse_string(file.get_as_text())
+	#if result == null:
+		#push_error("JSON 解析失败")
+		#return null
+	#if result is Array:
+		#var data: Array = dict_array_to_res(result, type)
+		#return data
+	#else:
+		#var data: Dictionary = dict_to_res(result, type)
+		#return data
+#
+#
+### 读取一个字典并转换为指定类型的资源(过时)
+#static func dict_to_res(dict: Dictionary, type) -> Variant:
+	#var resource = type.new()
+	#for key in dict:
+		#if resource.get(key) != null:
+			#resource.set(key, dict[key])
+	#return resource
+#
+#
+### 读取一个字典列表并转换为指定类型的资源列表(过时)
+#static func dict_array_to_res(array: Array, type) -> Array:
+	#var resource_array: Array = []
+	#for i in array:
+		#var resource = type.new()
+		#for key in i:
+			#if resource.get(key) != null:
+				#resource.set(key, i[key])
+		#resource_array.append(resource)
+	#return resource_array
