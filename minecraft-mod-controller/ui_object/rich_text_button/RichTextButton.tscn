@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://nhpbnop07ajm"]
+
+[ext_resource type="Script" uid="uid://cqip2a00i5iic" path="res://ui_object/rich_text_button/rich_text_button.gd" id="1_e0ncg"]
+
+[node name="RichTextButton" type="Button" unique_id=839211966]
+custom_minimum_size = Vector2(0, 30)
+offset_right = 249.0
+offset_bottom = 30.0
+script = ExtResource("1_e0ncg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=369244181]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/default_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+bbcode_enabled = true
+text = "RichTextLabel"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

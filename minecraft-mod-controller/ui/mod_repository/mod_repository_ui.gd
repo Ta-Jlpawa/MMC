@@ -25,7 +25,7 @@ func add_mod() -> void:
 	# 选择文件
 	var file_dialog: CustomFileDialog = CustomFileDialog.new()
 	self.add_child(file_dialog)
-	file_dialog.open_file_dialog("选择将要添加的模组文件", ["*.jar;模组文件 (*.jar)"], ["jar"], DisplayServer.FileDialogMode.FILE_DIALOG_MODE_OPEN_FILES)
+	file_dialog.open_file_dialog("选择将要添加的模组文件", ["*.jar;模组文件 (*.jar);application/java-archive"], ["jar"], DisplayServer.FileDialogMode.FILE_DIALOG_MODE_OPEN_FILES)
 	var select_file: PackedStringArray = await file_dialog.file_selected
 	file_dialog.queue_free()
 	if select_file.is_empty(): return
@@ -38,7 +38,7 @@ func add_mod() -> void:
 	file_copier.queue_free()
 	match copy_state:
 		FileCopyProgressPopup.COPY_STATE.NOCHANGE:
-			printerr("INFO: 文件没有发生改变")
+			print("INFO: 文件没有发生改变")
 			return
 		FileCopyProgressPopup.COPY_STATE.ERROR:
 			printerr("ERROR: 异常:文件复制失败!")

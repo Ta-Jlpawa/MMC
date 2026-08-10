@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bgmlukuq46qst"]
+
+[ext_resource type="Script" uid="uid://c4eodrg8t2drj" path="res://ui_object/repetitive_file_operation_obj/repetitive_file_operation.gd" id="1_148qc"]
+[ext_resource type="PackedScene" uid="uid://cj7eterc1h8mn" path="res://ui_object/file_obj/file_obj.tscn" id="2_oprj3"]
+
+[node name="MarginContainer2" type="MarginContainer" unique_id=1270221200 node_paths=PackedStringArray("overwrite_button", "skip_button", "overwrite_all_button", "skip_all_button", "generate_root")]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_148qc")
+overwrite_button = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/替换")
+skip_button = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/跳过")
+overwrite_all_button = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/全部替换")
+skip_all_button = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/全部跳过")
+generate_root = NodePath("VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer")
+fileObjStyle = ExtResource("2_oprj3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=315975758]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=491000552]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "下列模组已存在，请选择将要进行的操作"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1468007224]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer" unique_id=1977123702]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer" unique_id=866324878]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1432353407]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="替换" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2085109890]
+layout_mode = 2
+text = "替换"
+
+[node name="跳过" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1687565030]
+layout_mode = 2
+text = "跳过"
+
+[node name="全部替换" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=76770911]
+layout_mode = 2
+text = "全部替换"
+
+[node name="全部跳过" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=829701610]
+layout_mode = 2
+text = "全部跳过"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/替换" to="." method="_on_overwrite_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/跳过" to="." method="_on_skip_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/全部替换" to="." method="_on_overwrite_all_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/全部跳过" to="." method="_on_skip_all_button_pressed"]
