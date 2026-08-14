@@ -66,4 +66,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer2" parent="PanelContainer" unique_id=1270221200 instance=ExtResource("2_5y60q")]
+visible = false
 layout_mode = 2

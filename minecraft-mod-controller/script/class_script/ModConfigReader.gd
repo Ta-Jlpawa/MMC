@@ -3,9 +3,20 @@ extends RefCounted
 class_name ModConfigReader
 
 
-## 
-static func read_mod_from_dir(path: String) -> Array[String]:
-	DirAccess.get_files_at(path)
+static func bulid_modcfg_data() -> ModConfigData:
+	var modcfg_data: ModConfigData = ModConfigData.new()
+	return modcfg_data
+
+## 读取指定目录下的模组路径
+## 返回形如 <文件名> : <文件全局路径> 的字典
+static func read_mod_from_dir(path: String) -> Dictionary[String, String]:
+	var dir_path: String = path
+	var files: PackedStringArray = DirAccess.get_files_at(dir_path)
+	var jar_path: Dictionary[String, String] = {}
+	for i in files:
+		if i.get_extension() == "jar":
+			jar_path[i] = dir_path.path_join(i)
+	return jar_path
 
 
 ## TODO: 该方法未完成，解析一个没有导入的整合包似乎是一个艰巨的任务..

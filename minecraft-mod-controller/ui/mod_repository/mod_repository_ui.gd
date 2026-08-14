@@ -7,7 +7,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	hasModList.generate_modcfg_object(GameManager.mod_data)
+	hasModList.generate_mod_object(GameManager.mod_data)
 
 
 func _on_add_mod():
@@ -58,7 +58,7 @@ func add_mod() -> void:
 	GameManager.save_mod_data()
 	
 	# 刷新界面
-	hasModList.reload_modcfg_object(GameManager.mod_data)
+	hasModList.reload_mod_object(GameManager.mod_data)
 	print("INFO: 界面刷新")
 	
 
@@ -88,5 +88,5 @@ func remove_mod() -> void:
 	GameManager.save_mod_data()
 	
 	# 刷新界面
-	hasModList.reload_modcfg_object(GameManager.mod_data)
+	hasModList.reload_mod_object(GameManager.mod_data)
 	print("INFO: 界面刷新")

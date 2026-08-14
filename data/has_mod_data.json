@@ -20,5 +20,16 @@
 			"modloader": "NeoForge",
 			"name": "Test1"
 		}
+	},
+	"tectonic-3.0.26-neoforge-21.1.jar": {
+		"infomation": {
+			"author": "Apollo",
+			"description": "Terrain shaping brought to new heights, grander and more varied than ever before!",
+			"icon_path": "",
+			"mc_version": "[1.21, 1.21.1]",
+			"mod_version": "3.0.26",
+			"modloader": "NeoForge",
+			"name": "Tectonic"
+		}
 	}
 }

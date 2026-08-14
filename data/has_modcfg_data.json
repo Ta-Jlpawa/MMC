@@ -1,27 +1,4 @@
 {
-    "Test1": {
-        "infomation": {
-            "display_name": "Test1",
-            "description": "测试",
-            "mc_version": "1.21.1",
-            "modloader_version": "NeoForge",
-            "icon_path": ""
-        },
-        "has_mod_list": [
-            "T111", "T222", "T333"
-        ]
-        
-    },
-    "Test2": {
-        "infomation": {
-            "display_name": "Test2",
-            "description": "测试111",
-            "mc_version": "1.21.11",
-            "modloader_version": "NeoForge",
-            "icon_path": ""
-        },
-        "has_mod_list": [
-        ]
-    }
-
+    "Test1": "",
+    "Test2": ""
 }

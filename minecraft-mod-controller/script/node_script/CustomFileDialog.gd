@@ -25,7 +25,7 @@ func open_file_dialog(title: String, filters: PackedStringArray, extensions: Pac
 	var current_dir: String = _get_last_dir()
 	var filename: String= ""
 	var show_hidden: bool= false
-	var callback := Callable(self, "_on_file_dialog_closed")
+	var callback := Callable(self, "_on_file_dialog_closed").bind(mode)
 	_file_extensions = extensions
 	
 	DisplayServer.file_dialog_show(
@@ -37,7 +37,7 @@ func open_file_dialog(title: String, filters: PackedStringArray, extensions: Pac
 
 ## 原生弹窗关闭后的回调函数
 ## 回调函数会包含以下参数：status: bool（状态）、selected_paths: PackedStringArray（被选中的路径）、selected_filter_index: int（被选中的过滤器索引）
-func _on_file_dialog_closed(status: bool, selected_paths: PackedStringArray, _selected_filter_index: int) -> void:
+func _on_file_dialog_closed(status: bool, selected_paths: PackedStringArray, _selected_filter_index: int, mode: DisplayServer.FileDialogMode) -> void:
 	get_tree().paused = false
 	self.file_dialog_closed.emit()
 	
@@ -48,12 +48,13 @@ func _on_file_dialog_closed(status: bool, selected_paths: PackedStringArray, _se
 
 	# 后缀校验
 	for file_path: String in selected_paths:
-		if _is_extension_valid(file_path):
-			print("INFO: 成功选择合法文件: %s" % file_path)
-		else:
-			_show_native_error_alert("选择了非允许类型的文件！") # 可替换
-			printerr("ERROR: 文件选择被废弃")
-			return
+		if file_path.is_valid_filename(): # 仅文件需要效验
+			if _is_extension_valid(file_path):
+				print("INFO: 成功选择合法文件: %s" % file_path)
+			else:
+				_show_native_error_alert("选择了非允许类型的文件！") # 可替换
+				printerr("ERROR: 文件选择被废弃")
+				return
 			
 	# 从全路径中提取文件夹路径并保存
 	var file_path := selected_paths[0]

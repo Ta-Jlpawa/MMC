@@ -1,10 +1,14 @@
 extends Control
 
-@export var hasModConfigList: HasModConfigList = null
+@export var fileCopyProgressPopup: PackedScene
+
+@export var mainUI: Control = null
+@export var importDirUI: Control = null
 
 
 func _ready() -> void:
-	pass
+	mainUI.show()
+	importDirUI.hide()
 
 
 func _on_create_mod_config():
@@ -25,7 +29,7 @@ func _on_remove_mod_config():
 
 ## 创建新模组配置
 func create_mod_config() -> void:
-	hasModConfigList.reload_modcfg_object(GameManager.modcfg_data)
+	mainUI.generate_mod_object()
 	print("INFO: 添加配置操作完成")
 
 
@@ -38,8 +42,41 @@ func import_dir_config() -> void:
 	file_dialog.queue_free()
 	if select_file.is_empty(): return
 	
-	# 读取模组
+	# 查找目录下的模组文件，解析模组信息
+	var jar_path: Dictionary[String, String] = ModConfigReader.read_mod_from_dir(select_file[0])
+	var mod_data: Dictionary[String, ModData] = {}
+	for i in jar_path:
+		mod_data[i] = ModReader.read_mod_information(jar_path[i])
+	mainUI.hide()
+	importDirUI.show()
+	importDirUI.generate_mod_object(mod_data)
 	
+	# 等待继续或返回
+	var is_continue: bool = await importDirUI.is_continue
+	if !is_continue:
+		importDirUI.hide()
+		mainUI.show()
+		print("INFO: 用户选择取消导入")
+		return
+	
+	# 按照选择决定是否导入模组仓库
+	if importDirUI.get_option_state():
+		var file_copier: FileCopyProgressPopup = fileCopyProgressPopup.instantiate()
+		self.add_child(file_copier)
+		file_copier.start_copy(jar_path.values(), GameManager.get_execpath("modrepo"))
+		var copy_state: FileCopyProgressPopup.COPY_STATE = await file_copier.copy_finish
+		file_copier.queue_free()
+		match copy_state:
+			FileCopyProgressPopup.COPY_STATE.NOCHANGE:
+				print("INFO: 文件没有发生改变")
+			FileCopyProgressPopup.COPY_STATE.ERROR:
+				printerr("ERROR: 异常:文件复制失败!")
+			_:
+				pass
+		GameManager.append_mod_data(mod_data)
+		GameManager.save_mod_data()
+	
+	# 构建模组配置信息
 	
 	print("INFO: 导入配置操作完成")
 

@@ -2,16 +2,22 @@
 
 [ext_resource type="Script" uid="uid://0bqpi7fjad47" path="res://ui/mod_config/mod_config_ui.gd" id="1_8bguv"]
 [ext_resource type="PackedScene" uid="uid://cx8dgpxtmjxlu" path="res://ui_object/has_mod_config_list/has_mod_config_list.tscn" id="1_uyhkg"]
+[ext_resource type="PackedScene" uid="uid://cbm86oo8obl5k" path="res://ui_object/popup/file_copy_progress_popup/file_copy_progress_popup.tscn" id="2_6w6gf"]
+[ext_resource type="Script" uid="uid://cd4icl7qh20l5" path="res://ui/mod_config/main_ui.gd" id="2_tp6rs"]
 [ext_resource type="PackedScene" uid="uid://nhpbnop07ajm" path="res://ui_object/rich_text_button/RichTextButton.tscn" id="3_8bguv"]
+[ext_resource type="Script" uid="uid://ckx7ic6ss77yf" path="res://ui/mod_config/import_dir_ui.gd" id="3_b5iy2"]
+[ext_resource type="PackedScene" uid="uid://db2r40fvi1t7f" path="res://ui_object/has_mod_list/has_mod_list.tscn" id="4_4dm5x"]
 
-[node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("hasModConfigList")]
+[node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("mainUI", "importDirUI")]
 custom_minimum_size = Vector2(1150, 620)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1150.0
 offset_bottom = 620.0
 script = ExtResource("1_8bguv")
-hasModConfigList = NodePath("主界面/已有配置列表")
+fileCopyProgressPopup = ExtResource("2_6w6gf")
+mainUI = NodePath("主界面")
+importDirUI = NodePath("导入文件夹界面")
 
 [node name="主界面" type="Control" parent="." unique_id=2132792038]
 visible = false
@@ -21,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_tp6rs")
 
 [node name="Label" type="Label" parent="主界面" unique_id=1715845388]
 layout_mode = 0
@@ -86,13 +93,23 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "删除方案"
 
-[node name="导入文件夹界面" type="Control" parent="." unique_id=1960672979]
+[node name="导入文件夹界面" type="Control" parent="." unique_id=1960672979 node_paths=PackedStringArray("hasModListNode", "richCheckButton")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_b5iy2")
+hasModListNode = NodePath("已有模组列表")
+richCheckButton = NodePath("操作面板/MarginContainer/HBoxContainer/RichCheckButton")
+
+[node name="已有模组列表" parent="导入文件夹界面" unique_id=1686593246 instance=ExtResource("4_4dm5x")]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 97.0
+offset_right = 913.0
+offset_bottom = 620.0
 
 [node name="操作面板" type="Panel" parent="导入文件夹界面" unique_id=499211915]
 layout_mode = 0
@@ -123,27 +140,42 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=104094177]
+[node name="RichCheckButton" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=839211966 instance=ExtResource("3_8bguv")]
+layout_mode = 2
+true_text = "将模组导入模组仓库: [color=LIME_GREEN]是[/color]"
+false_text = "将模组导入模组仓库: [color=CRIMSON]否[/color]"
+
+[node name="确定" type="Button" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=613907628]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-text = "添加模组"
+text = "确定"
 
-[node name="Button2" type="Button" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=1999465008]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-text = "移除模组"
-
-[node name="RichTextButton" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=839211966 instance=ExtResource("3_8bguv")]
-layout_mode = 2
-toggle_mode = true
-label_text = "将所有模组添加至模组仓库: 是"
-
-[node name="Button4" type="Button" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=32266560]
+[node name="取消" type="Button" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=32266560]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "取消"
+
+[node name="Label" type="Label" parent="导入文件夹界面" unique_id=503936143]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 7.0
+offset_right = 173.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 31
+text = "导入文件夹"
+
+[node name="Label2" type="Label" parent="导入文件夹界面" unique_id=1535177261]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 48.0
+offset_right = 180.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 18
+text = "即将导入的模组如下"
 
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button" to="." method="_on_create_mod_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button2" to="." method="_on_import_dir_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button3" to="." method="_on_import_zip_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button4" to="." method="_on_remove_mod_config"]
+[connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/确定" to="导入文件夹界面" method="_on_continue_pressed"]
+[connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/取消" to="导入文件夹界面" method="_on_back_to_mainui_pressed"]
