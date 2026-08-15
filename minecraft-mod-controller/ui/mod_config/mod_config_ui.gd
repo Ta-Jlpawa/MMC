@@ -43,7 +43,7 @@ func import_dir_config() -> void:
 	if select_file.is_empty(): return
 	
 	# 查找目录下的模组文件，解析模组信息
-	var jar_path: Dictionary[String, String] = ModConfigReader.read_mod_from_dir(select_file[0])
+	var jar_path: Dictionary[String, String] = ModConfigReader.read_mod_from_dir(select_file[0]) # 形如 <文件名> : <文件全局路径> 的字典
 	var mod_data: Dictionary[String, ModData] = {}
 	for i in jar_path:
 		mod_data[i] = ModReader.read_mod_information(jar_path[i])
@@ -75,8 +75,27 @@ func import_dir_config() -> void:
 				pass
 		GameManager.append_mod_data(mod_data)
 		GameManager.save_mod_data()
+		print("INFO: %s 个模组已导入模组仓库" % [mod_data.size()])
 	
 	# 构建模组配置信息
+	var modcfg_data: ModConfigData = ModConfigData.bulid_modcfg_data(importDirUI.get_modcfg_infomation(), jar_path)
+	var id: String = importDirUI.get_modcfg_id()
+	
+	# 创建配置文件到modcfg文件夹
+	var file_name: String = ModConfigData.get_filename(modcfg_data, id)
+	JsonWriter.write_json(GameManager.get_execpath("modcfg/%s.json" % [file_name]), modcfg_data)
+	
+	# 同步保存 GameManager 与 data/has_modcfg_data.json 中数据
+	var modcfg_path_with_id: Dictionary[String, ModConfigData] = {}
+	modcfg_path_with_id[id] = modcfg_data
+	print("INFO: 构建成功，新增信息为 %s" % [modcfg_path_with_id])
+	GameManager.append_modcfg_data(modcfg_path_with_id)
+	GameManager.save_modcfg_data()
+	
+	# 刷新界面
+	mainUI.generate_mod_object()
+	importDirUI.hide()
+	mainUI.show()
 	
 	print("INFO: 导入配置操作完成")
 

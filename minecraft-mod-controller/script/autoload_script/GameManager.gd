@@ -53,16 +53,30 @@ func add_mod_data(key: String, value: ModData) -> void:
 
 func append_mod_data(data: Dictionary) -> void:
 	mod_data.merge(data, true)
-
+	
 
 func save_mod_data():
 	var mod_data_json: Dictionary[String, Dictionary] = {}
 	for i in mod_data:
 		var value = mod_data[i]
 		mod_data_json[i] = JsonWriter.resource_to_dict(value)
-	JsonWriter.append_json(get_execpath("data/has_mod_data.json"), mod_data_json)
+	JsonWriter.write_json(get_execpath("data/has_mod_data.json"), mod_data_json)
 	print("INFO: 模组数据保存")
+	
+	
+func append_modcfg_data(data: Dictionary) -> void:
+	modcfg_data.merge(data, true)
 
+
+func save_modcfg_data():
+	var modcfg_data_json: Dictionary[String, String] = {}
+	for id in modcfg_data:
+		var data = modcfg_data[id]
+		modcfg_data_json[id] = ModConfigData.get_filename(data, id)
+	JsonWriter.write_json(get_execpath("data/has_modcfg_data.json"), modcfg_data_json)
+	print("INFO: 模组配置保存")
+	
+	
 ## 加载时获取外部文件夹全局路径(仅执行一次)
 func _get_outside_file_path() -> void:
 	if OS.has_feature("editor"):

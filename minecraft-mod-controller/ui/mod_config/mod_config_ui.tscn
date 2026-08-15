@@ -19,7 +19,7 @@ fileCopyProgressPopup = ExtResource("2_6w6gf")
 mainUI = NodePath("主界面")
 importDirUI = NodePath("导入文件夹界面")
 
-[node name="主界面" type="Control" parent="." unique_id=2132792038]
+[node name="主界面" type="Control" parent="." unique_id=2132792038 node_paths=PackedStringArray("hasModConfigList")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -28,6 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_tp6rs")
+hasModConfigList = NodePath("已有配置列表")
 
 [node name="Label" type="Label" parent="主界面" unique_id=1715845388]
 layout_mode = 0
@@ -93,7 +94,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "删除方案"
 
-[node name="导入文件夹界面" type="Control" parent="." unique_id=1960672979 node_paths=PackedStringArray("hasModListNode", "richCheckButton")]
+[node name="导入文件夹界面" type="Control" parent="." unique_id=1960672979 node_paths=PackedStringArray("hasModListNode", "iDNode", "setDisplayNameNode", "setDescriptionNode", "setMCVersionNode", "setModLoaderVersionNode", "richCheckButton")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,14 +103,107 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_b5iy2")
 hasModListNode = NodePath("已有模组列表")
+iDNode = NodePath("配置信息/Label2")
+setDisplayNameNode = NodePath("配置信息/MarginContainer/HBoxContainer/LineEdit")
+setDescriptionNode = NodePath("配置信息/MarginContainer/HBoxContainer/TextEdit")
+setMCVersionNode = NodePath("配置信息/MarginContainer/HBoxContainer/VBoxContainer/Label4")
+setModLoaderVersionNode = NodePath("配置信息/MarginContainer/HBoxContainer/VBoxContainer2/Label6")
 richCheckButton = NodePath("操作面板/MarginContainer/HBoxContainer/RichCheckButton")
 
 [node name="已有模组列表" parent="导入文件夹界面" unique_id=1686593246 instance=ExtResource("4_4dm5x")]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 97.0
-offset_right = 913.0
+offset_top = 103.0
+offset_right = 569.0
 offset_bottom = 620.0
+
+[node name="配置信息" type="Panel" parent="导入文件夹界面" unique_id=1528600522]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 1.0
+offset_right = 909.0
+offset_bottom = 620.0
+
+[node name="Label" type="Label" parent="导入文件夹界面/配置信息" unique_id=726272327]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 24.0
+offset_right = 317.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 27
+text = "配置信息"
+
+[node name="Label2" type="Label" parent="导入文件夹界面/配置信息" unique_id=355906273]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 61.0
+offset_right = 316.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 15
+text = "ID"
+
+[node name="MarginContainer" type="MarginContainer" parent="导入文件夹界面/配置信息" unique_id=816483747]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 10
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="导入文件夹界面/配置信息/MarginContainer" unique_id=1348721796]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=660680503]
+layout_mode = 2
+text = "配置名称"
+
+[node name="LineEdit" type="LineEdit" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=486192544]
+layout_mode = 2
+placeholder_text = "在此输入配置名称"
+clear_button_enabled = true
+caret_blink = true
+
+[node name="Label2" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=1970432471]
+layout_mode = 2
+text = "描述"
+
+[node name="TextEdit" type="TextEdit" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=1767515794]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "在此输入配置描述(可选)"
+wrap_mode = 1
+scroll_smooth = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=118602933]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label3" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer" unique_id=492289138]
+layout_mode = 2
+text = "Minecraft版本"
+
+[node name="Label4" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1205764997]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "未知"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer" unique_id=485307005]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label5" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1793609691]
+layout_mode = 2
+text = "模组加载器版本"
+
+[node name="Label6" type="Label" parent="导入文件夹界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=651255305]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "未知"
 
 [node name="操作面板" type="Panel" parent="导入文件夹界面" unique_id=499211915]
 layout_mode = 0

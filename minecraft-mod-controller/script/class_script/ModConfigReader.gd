@@ -1,11 +1,7 @@
 extends RefCounted
-## 模组配置信息读取器
+## 模组配置信息读取器，包含写入文件相关方法
 class_name ModConfigReader
 
-
-static func bulid_modcfg_data() -> ModConfigData:
-	var modcfg_data: ModConfigData = ModConfigData.new()
-	return modcfg_data
 
 ## 读取指定目录下的模组路径
 ## 返回形如 <文件名> : <文件全局路径> 的字典
