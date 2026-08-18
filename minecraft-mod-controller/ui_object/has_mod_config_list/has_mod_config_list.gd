@@ -8,15 +8,15 @@ class_name HasModConfigList
 
 
 func _ready() -> void:
-	generate_modcfg_object(GameManager.modcfg_data)
+	pass
 
 
 ## 动态生成 模组配置信息 UI组件，组件信息应当来源于 GameManager.modcfg_data
-func generate_modcfg_object(data: Dictionary[String, ModConfigData]) -> void:
+func generate_modcfg_object(data: Dictionary[String, ModConfigData]):
 	for i in data:
 		var res: ModConfigData = data[i]
 		var obj: ModConfigObject = modConfigObjStyle.instantiate()
-		obj.set_data(res.infomation.display_name, res.infomation.description, res.infomation.mc_version, res.infomation.display_name)
+		obj.set_data(i, res.infomation.display_name, res.infomation.description, res.infomation.mc_version, res.infomation.display_name)
 		generateRootNode.add_child(obj)
 
 
@@ -32,3 +32,8 @@ func reload_modcfg_object(data: Dictionary[String, ModConfigData]):
 	clear_modcfg_object()
 	generate_modcfg_object(data)
 	print("INFO: 重载模组配置信息")
+
+
+## 获取生成的节点
+func get_nodes() -> Array[Node]:
+	return generateRootNode.get_children()

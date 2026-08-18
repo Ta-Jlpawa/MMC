@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func show_warning_popup(warn_type: GameConfig.WarningType, content: String) -> void:
-	var scene: PackedScene = load("res://ui/popup/WarningPopup/warning_popup.tscn")
+	var scene: PackedScene = preload("uid://i3ka4d43ttp3")
 	var popup: WarningPopup = scene.instantiate()
 	popup.set_popup_data(warn_type, content)
 	'''

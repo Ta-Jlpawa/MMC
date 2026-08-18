@@ -43,6 +43,6 @@ static func bulid_modcfg_data(information: ModConfigInformation, has_mod_path: D
 	return modcfg_data
 
 
-## 依照数据，得到约定的配置文件名称
+## 依照数据，得到约定的配置文件名称，名称带后缀
 static func get_filename(data: ModConfigData, id: String) -> String:
 	return "%s_%s.json" % [data.infomation.display_name, id]

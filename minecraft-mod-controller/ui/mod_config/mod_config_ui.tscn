@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://nhpbnop07ajm" path="res://ui_object/rich_text_button/RichTextButton.tscn" id="3_8bguv"]
 [ext_resource type="Script" uid="uid://ckx7ic6ss77yf" path="res://ui/mod_config/import_dir_ui.gd" id="3_b5iy2"]
 [ext_resource type="PackedScene" uid="uid://db2r40fvi1t7f" path="res://ui_object/has_mod_list/has_mod_list.tscn" id="4_4dm5x"]
+[ext_resource type="Script" uid="uid://clbdopsgn6tcb" path="res://ui/mod_config/create_new_ui.gd" id="5_c3skm"]
 
-[node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("mainUI", "importDirUI")]
+[node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("mainUI", "createCfgUI", "importDirUI")]
 custom_minimum_size = Vector2(1150, 620)
 layout_mode = 3
 anchors_preset = 0
@@ -17,6 +18,7 @@ offset_bottom = 620.0
 script = ExtResource("1_8bguv")
 fileCopyProgressPopup = ExtResource("2_6w6gf")
 mainUI = NodePath("主界面")
+createCfgUI = NodePath("创建新配置界面")
 importDirUI = NodePath("导入文件夹界面")
 
 [node name="主界面" type="Control" parent="." unique_id=2132792038 node_paths=PackedStringArray("hasModConfigList")]
@@ -94,7 +96,199 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "删除方案"
 
+[node name="创建新配置界面" type="Control" parent="." unique_id=661762902 node_paths=PackedStringArray("hasModListNode", "iDNode", "setDisplayNameNode", "setDescriptionNode", "setMCVersionNode", "setModLoaderVersionNode", "richCheckButton")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_c3skm")
+hasModListNode = NodePath("已有模组列表")
+iDNode = NodePath("配置信息/ID")
+setDisplayNameNode = NodePath("配置信息/MarginContainer/HBoxContainer/配置名称输入")
+setDescriptionNode = NodePath("配置信息/MarginContainer/HBoxContainer/描述输入")
+setMCVersionNode = NodePath("配置信息/MarginContainer/HBoxContainer/VBoxContainer/MCversion")
+setModLoaderVersionNode = NodePath("配置信息/MarginContainer/HBoxContainer/VBoxContainer2/MODLOADERversion")
+richCheckButton = NodePath("操作面板/MarginContainer/HBoxContainer/RichCheckButton")
+
+[node name="已有模组列表" parent="创建新配置界面" unique_id=1885832725 instance=ExtResource("4_4dm5x")]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 135.0
+offset_right = 569.0
+offset_bottom = 620.0
+
+[node name="添加模组" type="Button" parent="创建新配置界面" unique_id=1784129653]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 90.0
+offset_right = 217.0
+offset_bottom = 121.0
+text = "添加模组"
+
+[node name="移除模组" type="Button" parent="创建新配置界面" unique_id=868391516]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 227.0
+offset_top = 90.0
+offset_right = 427.0
+offset_bottom = 121.0
+text = "移除模组"
+
+[node name="配置信息" type="Panel" parent="创建新配置界面" unique_id=118078660]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 1.0
+offset_right = 909.0
+offset_bottom = 620.0
+
+[node name="Label" type="Label" parent="创建新配置界面/配置信息" unique_id=959969371]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 24.0
+offset_right = 317.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 27
+text = "配置信息"
+
+[node name="ID" type="Label" parent="创建新配置界面/配置信息" unique_id=1684060847]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 61.0
+offset_right = 316.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 15
+text = "ID"
+
+[node name="MarginContainer" type="MarginContainer" parent="创建新配置界面/配置信息" unique_id=39439970]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 10
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="创建新配置界面/配置信息/MarginContainer" unique_id=39447477]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1687143663]
+layout_mode = 2
+text = "配置名称"
+
+[node name="配置名称输入" type="LineEdit" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1247628514]
+layout_mode = 2
+placeholder_text = "在此输入配置名称"
+clear_button_enabled = true
+caret_blink = true
+
+[node name="Label2" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1603229631]
+layout_mode = 2
+text = "描述"
+
+[node name="描述输入" type="TextEdit" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1594087753]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+placeholder_text = "在此输入配置描述(可选)"
+wrap_mode = 1
+scroll_smooth = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1308385523]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label3" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer" unique_id=287539137]
+layout_mode = 2
+text = "Minecraft版本"
+
+[node name="MCversion" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer" unique_id=627479219]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "未知"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer" unique_id=1266845898]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label5" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1161703490]
+layout_mode = 2
+text = "模组加载器版本"
+
+[node name="MODLOADERversion" type="Label" parent="创建新配置界面/配置信息/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1176214393]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "未知"
+
+[node name="操作面板" type="Panel" parent="创建新配置界面" unique_id=1452540123]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 1.0
+offset_right = 1149.0
+offset_bottom = 621.0
+
+[node name="Label" type="Label" parent="创建新配置界面/操作面板" unique_id=1621620728]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 224.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 27
+text = "操作面板"
+
+[node name="MarginContainer" type="MarginContainer" parent="创建新配置界面/操作面板" unique_id=591329039]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 75
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="创建新配置界面/操作面板/MarginContainer" unique_id=619314574]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RichCheckButton" parent="创建新配置界面/操作面板/MarginContainer/HBoxContainer" unique_id=839211966 instance=ExtResource("3_8bguv")]
+layout_mode = 2
+true_text = "将模组导入模组仓库: [color=LIME_GREEN]是[/color]"
+false_text = "将模组导入模组仓库: [color=CRIMSON]否[/color]"
+
+[node name="确定" type="Button" parent="创建新配置界面/操作面板/MarginContainer/HBoxContainer" unique_id=571110224]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "确定"
+
+[node name="取消" type="Button" parent="创建新配置界面/操作面板/MarginContainer/HBoxContainer" unique_id=578112237]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "取消"
+
+[node name="Label" type="Label" parent="创建新配置界面" unique_id=1008058103]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 7.0
+offset_right = 173.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 31
+text = "创建新配置"
+
+[node name="Label2" type="Label" parent="创建新配置界面" unique_id=446248950]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 48.0
+offset_right = 180.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 18
+text = "需要选择将要添加的模组"
+
 [node name="导入文件夹界面" type="Control" parent="." unique_id=1960672979 node_paths=PackedStringArray("hasModListNode", "iDNode", "setDisplayNameNode", "setDescriptionNode", "setMCVersionNode", "setModLoaderVersionNode", "richCheckButton")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,7 +428,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="RichCheckButton" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=839211966 instance=ExtResource("3_8bguv")]
+[node name="RichCheckButton" parent="导入文件夹界面/操作面板/MarginContainer/HBoxContainer" unique_id=1455855976 instance=ExtResource("3_8bguv")]
 layout_mode = 2
 true_text = "将模组导入模组仓库: [color=LIME_GREEN]是[/color]"
 false_text = "将模组导入模组仓库: [color=CRIMSON]否[/color]"
@@ -271,5 +465,7 @@ text = "即将导入的模组如下"
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button2" to="." method="_on_import_dir_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button3" to="." method="_on_import_zip_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button4" to="." method="_on_remove_mod_config"]
+[connection signal="pressed" from="创建新配置界面/添加模组" to="创建新配置界面" method="_on_add_mod_pressed"]
+[connection signal="pressed" from="创建新配置界面/移除模组" to="创建新配置界面" method="_on_remove_mod_pressed"]
 [connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/确定" to="导入文件夹界面" method="_on_continue_pressed"]
 [connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/取消" to="导入文件夹界面" method="_on_back_to_mainui_pressed"]

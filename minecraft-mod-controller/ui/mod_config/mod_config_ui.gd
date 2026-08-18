@@ -3,12 +3,13 @@ extends Control
 @export var fileCopyProgressPopup: PackedScene
 
 @export var mainUI: Control = null
+@export var createCfgUI:  Control = null
 @export var importDirUI: Control = null
 
 
 func _ready() -> void:
-	mainUI.show()
-	importDirUI.hide()
+	mainUI.generate_mod_object()
+	_show_target_ui(mainUI)
 
 
 func _on_create_mod_config():
@@ -29,6 +30,10 @@ func _on_remove_mod_config():
 
 ## 创建新模组配置
 func create_mod_config() -> void:
+	_show_target_ui(createCfgUI)
+	
+	## TODO: 实现逻辑
+	
 	mainUI.generate_mod_object()
 	print("INFO: 添加配置操作完成")
 
@@ -47,15 +52,13 @@ func import_dir_config() -> void:
 	var mod_data: Dictionary[String, ModData] = {}
 	for i in jar_path:
 		mod_data[i] = ModReader.read_mod_information(jar_path[i])
-	mainUI.hide()
-	importDirUI.show()
+	_show_target_ui(importDirUI)
 	importDirUI.generate_mod_object(mod_data)
 	
 	# 等待继续或返回
 	var is_continue: bool = await importDirUI.is_continue
 	if !is_continue:
-		importDirUI.hide()
-		mainUI.show()
+		_show_target_ui(mainUI)
 		print("INFO: 用户选择取消导入")
 		return
 	
@@ -83,7 +86,7 @@ func import_dir_config() -> void:
 	
 	# 创建配置文件到modcfg文件夹
 	var file_name: String = ModConfigData.get_filename(modcfg_data, id)
-	JsonWriter.write_json(GameManager.get_execpath("modcfg/%s.json" % [file_name]), modcfg_data)
+	JsonWriter.write_json(GameManager.get_execpath("modcfg/%s" % [file_name]), modcfg_data)
 	
 	# 同步保存 GameManager 与 data/has_modcfg_data.json 中数据
 	var modcfg_path_with_id: Dictionary[String, ModConfigData] = {}
@@ -94,8 +97,7 @@ func import_dir_config() -> void:
 	
 	# 刷新界面
 	mainUI.generate_mod_object()
-	importDirUI.hide()
-	mainUI.show()
+	_show_target_ui(mainUI)
 	
 	print("INFO: 导入配置操作完成")
 
@@ -115,4 +117,18 @@ func import_zip_config() -> void:
 
 ## 移除模组配置
 func remove_mod_config() -> void:
+	var selected_cfg: Array[String] = mainUI.get_selected_node()
+	if selected_cfg.is_empty():
+		print("INFO: 移除配置操作失败: 未选择配置")
+		return
+		
+	#TODO: 具体移除逻辑
+		
 	print("INFO: 移除配置操作完成")
+	mainUI.unselected_all()
+
+
+func _show_target_ui(node: Node):
+	for i in self.get_children():
+		i.visible = false
+	node.visible = true

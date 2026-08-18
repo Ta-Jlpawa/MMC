@@ -1,28 +1,29 @@
-[gd_scene format=3 uid="uid://bpininyxqju68"]
+[gd_scene format=3 uid="uid://ctayltqa2dmf4"]
 
-[ext_resource type="Script" uid="uid://to5i0x3wmkft" path="res://ui_object/mod_information_obj/mod_information_obj.gd" id="1_behto"]
-[ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="2_db3hs"]
+[ext_resource type="Script" uid="uid://c3i237tu51pdf" path="res://ui_object/information_ui_object/mod_config_obj/mod_config_obj.gd" id="1_wh6ty"]
+[ext_resource type="Script" uid="uid://b88s8w32f2pin" path="res://ui_object/information_ui_object/mod_config_obj/panel.gd" id="2_1qyd4"]
+[ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="2_o1i8j"]
 
-[node name="ModConfigObj" type="Control" unique_id=40857236 node_paths=PackedStringArray("title_label", "author_label", "content_label", "mcver_label", "modver_label")]
+[node name="ModConfigObj" type="Control" unique_id=40857236 node_paths=PackedStringArray("panel", "title_label", "content_label", "mcver_label", "modver_label")]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-script = ExtResource("1_behto")
-title_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/标题")
-author_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/作者")
+script = ExtResource("1_wh6ty")
+panel = NodePath("PanelContainer")
+title_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/标题")
 content_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/描述")
 mcver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MC版本")
 modver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/模组加载器版本")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=947557065]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=816072437]
+custom_minimum_size = Vector2(1150, 75)
+layout_mode = 0
+offset_right = 601.0
+offset_bottom = 50.0
+mouse_filter = 1
+script = ExtResource("2_1qyd4")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1926847302]
 layout_mode = 2
@@ -37,36 +38,25 @@ layout_mode = 2
 [node name="图标" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1433568085]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture = ExtResource("2_db3hs")
+texture = ExtResource("2_o1i8j")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1781192311]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1275166187]
+[node name="标题" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1449679137]
 layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="标题" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1449679137]
-layout_mode = 2
+mouse_filter = 1
 bbcode_enabled = true
 text = "模组配置标题"
 fit_content = true
 scroll_active = false
-autowrap_mode = 0
-
-[node name="作者" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1138512942]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 11
-text = "作者名称"
-vertical_alignment = 2
 
 [node name="描述" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1330071830]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 text = "配置描述"

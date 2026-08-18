@@ -14,7 +14,9 @@ static func generate_modcfg_id(length: int = 8) -> String:
 		for i in range(length):
 			id += CHARACTERS[rng.randi_range(0, CHARACTERS.length() - 1)]
 		if id not in GameManager.modcfg_data: break
-		else: print("WTF: [IDGenerator] ID生成重复?!你的运气真好！")
+		else:
+			UIManager.show_warning_popup(GameConfig.WarningType.NOTICE, "WTF: [IDGenerator] ID生成重复?!你的运气真好！")
+			print("WTF: [IDGenerator] ID生成重复?!你的运气真好！")
 			
 	print("INFO: [IDGenerator] 生成ID %s" % id)
 	return id
