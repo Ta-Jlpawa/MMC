@@ -40,3 +40,10 @@ layout_mode = 2
 toggle_mode = true
 text = "模组仓库"
 clip_text = true
+
+[node name="模组仓库2" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1193723637]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+toggle_mode = true
+text = "辅助功能"
+clip_text = true

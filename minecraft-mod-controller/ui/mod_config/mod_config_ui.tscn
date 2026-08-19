@@ -95,6 +95,11 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "删除方案"
 
+[node name="Button5" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=122318044]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "应用方案"
+
 [node name="创建新配置界面" type="Control" parent="." unique_id=661762902 node_paths=PackedStringArray("hasModListNode", "iDNode", "setDisplayNameNode", "setDescriptionNode", "setMCVersionNode", "setModLoaderVersionNode", "richCheckButton")]
 visible = false
 layout_mode = 1

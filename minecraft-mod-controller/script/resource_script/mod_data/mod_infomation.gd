@@ -3,8 +3,9 @@ extends Resource
 class_name ModInfomation
 
 
+var id: String = "" ## 模组id
 var name: String = "未知名称" ## 模组名
-var author: String = "未知作者" ## 作者
+var author: Array[String] = ["未知作者"] ## 作者
 var description: String = "" ## 描述
 var mc_version: String = "未知版本" ## 模组支持的mc版本
 var mod_version: String = "未知版本" ## 模组自身的版本
