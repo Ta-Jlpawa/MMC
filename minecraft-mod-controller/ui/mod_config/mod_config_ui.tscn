@@ -467,5 +467,7 @@ text = "即将导入的模组如下"
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button4" to="." method="_on_remove_mod_config"]
 [connection signal="pressed" from="创建新配置界面/添加模组" to="创建新配置界面" method="_on_add_mod_pressed"]
 [connection signal="pressed" from="创建新配置界面/移除模组" to="创建新配置界面" method="_on_remove_mod_pressed"]
+[connection signal="pressed" from="创建新配置界面/操作面板/MarginContainer/HBoxContainer/确定" to="创建新配置界面" method="_on_continue_pressed"]
+[connection signal="pressed" from="创建新配置界面/操作面板/MarginContainer/HBoxContainer/取消" to="创建新配置界面" method="_on_back_to_mainui_pressed"]
 [connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/确定" to="导入文件夹界面" method="_on_continue_pressed"]
 [connection signal="pressed" from="导入文件夹界面/操作面板/MarginContainer/HBoxContainer/取消" to="导入文件夹界面" method="_on_back_to_mainui_pressed"]

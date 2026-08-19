@@ -10,6 +10,7 @@ signal object_unselected(object: Node) ## 组件取消选中
 @export var content_label: RichTextLabel
 @export var mcver_label: Label
 @export var modver_label: Label
+@export var enable_state: bool = true ## 是否启用组件状态
 
 ## 状态
 var state: State = State.NORMAL:
@@ -24,6 +25,7 @@ func _ready() -> void:
 	
 
 func _gui_input(event: InputEvent) -> void:
+	if !enable_state: return # 不启用组件状态则不响应
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if state == InformationUIObject.State.NORMAL:

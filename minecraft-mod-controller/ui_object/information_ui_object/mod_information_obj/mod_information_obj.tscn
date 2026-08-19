@@ -2,53 +2,55 @@
 
 [ext_resource type="Script" uid="uid://to5i0x3wmkft" path="res://ui_object/information_ui_object/mod_information_obj/mod_information_obj.gd" id="1_x1l0b"]
 [ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="2_he1fk"]
+[ext_resource type="Script" uid="uid://bosthmfhcjkuu" path="res://ui_object/information_ui_object/mod_information_obj/panel.gd" id="2_wduvu"]
 
-[node name="ModConfigObj" type="Control" unique_id=40857236 node_paths=PackedStringArray("button", "title_label", "author_label", "content_label", "mcver_label", "modver_label")]
+[node name="ModConfigObj" type="Control" unique_id=40857236 node_paths=PackedStringArray("panel", "title_label", "author_label", "content_label", "mcver_label", "modver_label")]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_x1l0b")
-button = NodePath("Button")
-title_label = NodePath("Button/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/标题")
-author_label = NodePath("Button/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/作者")
-content_label = NodePath("Button/MarginContainer/HBoxContainer/VBoxContainer/描述")
-mcver_label = NodePath("Button/MarginContainer/HBoxContainer/VBoxContainer2/MC版本")
-modver_label = NodePath("Button/MarginContainer/HBoxContainer/VBoxContainer2/模组加载器版本")
+panel = NodePath("PanelContainer")
+title_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/标题")
+author_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/作者")
+content_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/描述")
+mcver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/MC版本")
+modver_label = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/模组加载器版本")
 
-[node name="Button" type="Button" parent="." unique_id=565470741]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=994606299]
+custom_minimum_size = Vector2(1150, 75)
 layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 75.0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("2_wduvu")
 
-[node name="MarginContainer" type="MarginContainer" parent="Button" unique_id=1926847302]
-layout_mode = 0
-offset_right = 1150.0
-offset_bottom = 75.0
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1926847302]
+layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Button/MarginContainer" unique_id=1359538087]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1359538087]
 layout_mode = 2
 
-[node name="图标" type="TextureRect" parent="Button/MarginContainer/HBoxContainer" unique_id=1433568085]
+[node name="图标" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1433568085]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 texture = ExtResource("2_he1fk")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Button/MarginContainer/HBoxContainer" unique_id=1781192311]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1781192311]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Button/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1275166187]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1275166187]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="标题" type="RichTextLabel" parent="Button/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1449679137]
+[node name="标题" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1449679137]
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
@@ -57,7 +59,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="作者" type="Label" parent="Button/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1138512942]
+[node name="作者" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1138512942]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -65,7 +67,7 @@ theme_override_font_sizes/font_size = 11
 text = "作者名称"
 vertical_alignment = 2
 
-[node name="描述" type="RichTextLabel" parent="Button/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1330071830]
+[node name="描述" type="RichTextLabel" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1330071830]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -73,18 +75,18 @@ theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 text = "配置描述"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Button/MarginContainer/HBoxContainer" unique_id=311061356]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=311061356]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="MC版本" type="Label" parent="Button/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1449922655]
+[node name="MC版本" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1449922655]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "1.21.1"
 horizontal_alignment = 2
 
-[node name="模组加载器版本" type="Label" parent="Button/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=835951594]
+[node name="模组加载器版本" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=835951594]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "NeoForge"

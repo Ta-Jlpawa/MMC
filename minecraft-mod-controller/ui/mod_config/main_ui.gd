@@ -7,8 +7,9 @@ var object_select_id: Array[String] = []
 
 func generate_mod_object() -> void:
 	for old_node in object_list:
-		old_node.disconnect("object_selected", _object_selected)
-		old_node.disconnect("object_unselected", _object_unselected)
+		if is_instance_valid(old_node):
+			old_node.disconnect("object_selected", _object_selected)
+			old_node.disconnect("object_unselected", _object_unselected)
 	object_list.clear()
 	object_select_id.clear()
 	hasModConfigList.reload_modcfg_object(GameManager.modcfg_data)

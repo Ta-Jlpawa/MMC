@@ -50,6 +50,9 @@ func get_modcfg_id() -> String:
 
 
 func _on_continue_pressed():
+	if setDisplayNameNode.text == "":
+		print("INFO: 必填项未填完整，不能继续")
+		return
 	self.is_continue.emit(true)
 	
 

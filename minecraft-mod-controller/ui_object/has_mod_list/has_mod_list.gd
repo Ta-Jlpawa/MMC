@@ -17,7 +17,7 @@ func generate_mod_object(data: Dictionary[String, ModData]) -> void:
 	for i in data:
 		var value = data[i]
 		var obj: ModObject = modObjStyle.instantiate()
-		obj.set_data(value.infomation.name, value.infomation.author, value.infomation.description, value.infomation.mc_version, value.infomation.mod_version)
+		obj.set_data(i, value.infomation.name, value.infomation.author, value.infomation.description, value.infomation.mc_version, value.infomation.mod_version)
 		generateRootNode.add_child(obj)
 
 
@@ -34,3 +34,8 @@ func reload_mod_object(data: Dictionary[String, ModData]):
 	clear_mod_object()
 	generate_mod_object(data)
 	print("INFO: 重载模组配置信息")
+
+
+## 获取生成的节点
+func get_nodes() -> Array[Node]:
+	return generateRootNode.get_children()

@@ -3,7 +3,13 @@ extends RefCounted
 class_name FileOperator
 
 
-## 将文件移动到回收站
+## 将单个文件移动到回收站
+static func remove_file(file_path: String):
+	OS.move_to_trash(file_path)
+	print("INFO: [FileRemover] 移除文件 %s" % [file_path])
+	
+	
+## 将文件批量移动到回收站
 static func remove_files(file_path: PackedStringArray):
 	for i in file_path:
 		OS.move_to_trash(i)

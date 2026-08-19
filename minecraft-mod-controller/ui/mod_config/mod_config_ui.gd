@@ -30,11 +30,54 @@ func _on_remove_mod_config():
 
 ## 创建新模组配置
 func create_mod_config() -> void:
+	createCfgUI.init_ui()
 	_show_target_ui(createCfgUI)
 	
-	## TODO: 实现逻辑
+	# 等待继续
+	var is_continue: bool = await createCfgUI.is_continue
+	if !is_continue:
+		_show_target_ui(mainUI)
+		print("INFO: 用户选择取消导入")
+		return
+		
+	var jar_path: Dictionary[String, String] = createCfgUI.get_modcfg_has_mods()
+	var mod_data: Dictionary[String, ModData] = createCfgUI.get_modcfg_moddata()
+	# 按照选择决定是否导入模组仓库
+	if createCfgUI.get_option_state():
+		var file_copier: FileCopyProgressPopup = fileCopyProgressPopup.instantiate()
+		self.add_child(file_copier)
+		file_copier.start_copy(jar_path.values(), GameManager.get_execpath("modrepo"))
+		var copy_state: FileCopyProgressPopup.COPY_STATE = await file_copier.copy_finish
+		file_copier.queue_free()
+		match copy_state:
+			FileCopyProgressPopup.COPY_STATE.NOCHANGE:
+				print("INFO: 文件没有发生改变")
+			FileCopyProgressPopup.COPY_STATE.ERROR:
+				printerr("ERROR: 异常:文件复制失败!")
+			_:
+				pass
+		GameManager.append_mod_data(mod_data)
+		GameManager.save_mod_data()
+		print("INFO: %s 个模组已导入模组仓库" % [mod_data.size()])
+		
+	# 构建模组配置信息
+	var modcfg_data: ModConfigData = ModConfigData.bulid_modcfg_data(createCfgUI.get_modcfg_infomation(), jar_path)
+	var id: String = createCfgUI.get_modcfg_id()
 	
+	# 创建配置文件到modcfg文件夹
+	var file_name: String = ModConfigData.get_filename(modcfg_data, id)
+	JsonWriter.write_json(GameManager.get_execpath("modcfg/%s" % [file_name]), modcfg_data)
+	
+	# 同步保存 GameManager 与 data/has_modcfg_data.json 中数据
+	var modcfg_path_with_id: Dictionary[String, ModConfigData] = {}
+	modcfg_path_with_id[id] = modcfg_data
+	print("INFO: 构建成功，新增信息为 %s" % [modcfg_path_with_id])
+	GameManager.append_modcfg_data(modcfg_path_with_id)
+	GameManager.save_modcfg_data()
+	
+	# 刷新界面
 	mainUI.generate_mod_object()
+	_show_target_ui(mainUI)
 	print("INFO: 添加配置操作完成")
 
 
@@ -49,6 +92,9 @@ func import_dir_config() -> void:
 	
 	# 查找目录下的模组文件，解析模组信息
 	var jar_path: Dictionary[String, String] = ModConfigReader.read_mod_from_dir(select_file[0]) # 形如 <文件名> : <文件全局路径> 的字典
+	if jar_path.is_empty():
+		print("INFO: 文件夹不存在模组文件")
+		return
 	var mod_data: Dictionary[String, ModData] = {}
 	for i in jar_path:
 		mod_data[i] = ModReader.read_mod_information(jar_path[i])
@@ -122,9 +168,17 @@ func remove_mod_config() -> void:
 		print("INFO: 移除配置操作失败: 未选择配置")
 		return
 		
-	#TODO: 具体移除逻辑
-		
+	for id in selected_cfg:
+		if !GameManager.modcfg_data.has(id): continue
+		# 移除文件
+		var file_path = GameManager.get_execpath("modcfg/".path_join(ModConfigData.get_filename(GameManager.modcfg_data.get(id), id)))
+		FileOperator.remove_file(file_path)
+		# 移除数据
+		GameManager.modcfg_data.erase(id)
+		GameManager.save_modcfg_data()
+	
 	print("INFO: 移除配置操作完成")
+	mainUI.generate_mod_object()
 	mainUI.unselected_all()
 
 
