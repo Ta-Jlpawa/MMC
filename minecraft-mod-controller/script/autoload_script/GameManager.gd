@@ -13,8 +13,8 @@ var settings: Dictionary = {}
 func _ready() -> void:
 	_get_outside_file_path()
 	_get_data()
+	#print(ModpackReader.parse_zip(get_execpath("test/SFSR_neoforge_modpack 0.0.1.zip")))
 	print("INFO: GameManager Ready")
-	#JsonWriter.save_res_to_json(get_execpath("data/has_modcfg_data.json"), modcfg_data)
 
 
 ## 通过相对路径，获取要操作的文件的完整路径

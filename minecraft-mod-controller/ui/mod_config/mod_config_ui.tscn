@@ -22,7 +22,6 @@ createCfgUI = NodePath("创建新配置界面")
 importDirUI = NodePath("导入文件夹界面")
 
 [node name="主界面" type="Control" parent="." unique_id=2132792038 node_paths=PackedStringArray("hasModConfigList")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,6 +96,7 @@ layout_mode = 2
 text = "删除方案"
 
 [node name="创建新配置界面" type="Control" parent="." unique_id=661762902 node_paths=PackedStringArray("hasModListNode", "iDNode", "setDisplayNameNode", "setDescriptionNode", "setMCVersionNode", "setModLoaderVersionNode", "richCheckButton")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

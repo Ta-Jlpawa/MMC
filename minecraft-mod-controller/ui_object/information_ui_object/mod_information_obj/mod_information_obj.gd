@@ -1,4 +1,5 @@
 extends InformationUIObject
+## 显示模组信息的UI组件, 组件id一般为模组文件名(带后缀)
 class_name ModObject
 
 signal object_selected(object: Node) ## 组件被选中

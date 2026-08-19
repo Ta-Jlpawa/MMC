@@ -11,6 +11,8 @@ class ModpackInfo:
 
 
 ## 读取并解析 .zip 整合包文件
+## 返回的字典包含: name:整合包名称, version:整合包版本, mc_version:MC版本, files:整合包mod信息列表
+## 整合包mod信息包含: name: 模组文件名(带后缀), path: 模组在整合包中的路径(实际没大用)
 static func parse_zip(zip_path: String) -> Dictionary:
 	var reader := ZIPReader.new()
 	var err := reader.open(zip_path)
@@ -31,15 +33,17 @@ static func parse_zip(zip_path: String) -> Dictionary:
 		_parse_modrinth(json_bytes.get_string_from_utf8(), result)
 	# 2. 其次检测 CurseForge 格式 (manifest.json)
 	elif reader.file_exists("manifest.json"):
-		var json_bytes := reader.read_file("manifest.json")
-		_parse_curseforge(json_bytes.get_string_from_utf8(), result)
+		printerr("UNKNOWN: 未实现导入CurseForge格式的整合包")
+		## TODO: 实现导入CurseForge格式的整合包
+		#var json_bytes := reader.read_file("manifest.json")
+		#_parse_curseforge(json_bytes.get_string_from_utf8(), result)
 	else:
 		push_error("未找到支持的整合包配置文件 (manifest.json 或 modrinth.index.json)")
 
 	reader.close()
 	return result
 
-# 解析 Modrinth 格式（自带直链，最友好）
+## 解析 Modrinth 格式整合包
 static func _parse_modrinth(json_str: String, out_result: Dictionary) -> void:
 	var json := JSON.new()
 	if json.parse(json_str) != OK:
@@ -62,7 +66,8 @@ static func _parse_modrinth(json_str: String, out_result: Dictionary) -> void:
 				"size": file.get("fileSize", 0)
 			})
 
-# 解析 CurseForge 格式
+## 解析 CurseForge 格式整合包
+## TODO： 需要修改实现
 static func _parse_curseforge(json_str: String, out_result: Dictionary) -> void:
 	var json := JSON.new()
 	if json.parse(json_str) != OK:
@@ -84,7 +89,7 @@ static func _parse_curseforge(json_str: String, out_result: Dictionary) -> void:
 			"path": "mods/mod_%d_%d.jar" % [project_id, file_id],
 			"project_id": project_id,
 			"file_id": file_id,
-			# 注意：CurseForge 官方不直接在 manifest 里给 URL，
+			# CurseForge 官方不直接在 manifest 里给 URL，
 			# 需使用 CurseForge API 或第三方 Mirror API 换取真实 URL
 			"url": "" 
 		})

@@ -1,15 +1,4 @@
 {
-	"AmbientSounds_NEOFORGE_v6.3.8_mc1.21.1.jar": {
-		"infomation": {
-			"author": "CreativeMD",
-			"description": "'''Expands minecraft's ambient sounds.'''",
-			"icon_path": "",
-			"mc_version": "[1.21.1,1.22)",
-			"mod_version": "6.3.8",
-			"modloader": "NeoForge",
-			"name": "AmbientSounds"
-		}
-	},
 	"Test.jar": {
 		"infomation": {
 			"author": "Tester",
@@ -19,17 +8,6 @@
 			"mod_version": "1.11.11",
 			"modloader": "NeoForge",
 			"name": "Test1"
-		}
-	},
-	"tectonic-3.0.26-neoforge-21.1.jar": {
-		"infomation": {
-			"author": "Apollo",
-			"description": "Terrain shaping brought to new heights, grander and more varied than ever before!",
-			"icon_path": "",
-			"mc_version": "[1.21, 1.21.1]",
-			"mod_version": "3.0.26",
-			"modloader": "NeoForge",
-			"name": "Tectonic"
 		}
 	}
 }

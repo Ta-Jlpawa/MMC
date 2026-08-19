@@ -149,6 +149,8 @@ func import_dir_config() -> void:
 
 
 func import_zip_config() -> void:
+	print("INFO: 该方法未完成")
+	return
 	# 选择文件
 	var file_dialog: CustomFileDialog = CustomFileDialog.new()
 	self.add_child(file_dialog)

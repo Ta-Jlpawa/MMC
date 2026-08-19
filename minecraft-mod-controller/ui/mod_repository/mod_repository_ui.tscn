@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cbm86oo8obl5k" path="res://ui_object/popup/file_copy_progress_popup/file_copy_progress_popup.tscn" id="2_b6rm6"]
 [ext_resource type="PackedScene" uid="uid://db2r40fvi1t7f" path="res://ui_object/has_mod_list/has_mod_list.tscn" id="2_vfei8"]
 
-[node name="模组仓库UI" type="Control" unique_id=978533941 node_paths=PackedStringArray("hasModList")]
+[node name="模组仓库UI" type="Control" unique_id=978533941 node_paths=PackedStringArray("hasModListNode")]
 custom_minimum_size = Vector2(1150, 620)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3dffy")
 fileCopyProgressPopup = ExtResource("2_b6rm6")
-hasModList = NodePath("已有模组列表")
+hasModListNode = NodePath("已有模组列表")
 
 [node name="Label" type="Label" parent="." unique_id=85411821]
 layout_mode = 0

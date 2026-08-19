@@ -2,12 +2,14 @@ extends Control
 
 
 @export var fileCopyProgressPopup: PackedScene
-@export var hasModList: HasModList
+@export var hasModListNode: HasModList
+
+var object_list: Array[Node] = []
+var selected_object: Array[String] = [] ## 将要移除的模组名
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	hasModList.generate_mod_object(GameManager.mod_data)
+	generate_mod_object(GameManager.mod_data)
 
 
 func _on_add_mod():
@@ -20,7 +22,7 @@ func _on_remove_mod():
 	remove_mod()
 
 
-## 添加模组配置
+## 添加模组
 func add_mod() -> void:
 	# 选择文件
 	var file_dialog: CustomFileDialog = CustomFileDialog.new()
@@ -58,27 +60,20 @@ func add_mod() -> void:
 	GameManager.save_mod_data()
 	
 	# 刷新界面
-	hasModList.reload_mod_object(GameManager.mod_data)
+	generate_mod_object(GameManager.mod_data)
 	print("INFO: 界面刷新")
 	
 
-## 移除模组配置
+## 移除模组
 func remove_mod() -> void:
-	# 选择文件
-	var file_dialog: CustomFileDialog = CustomFileDialog.new()
-	self.add_child(file_dialog)
-	file_dialog.open_file_dialog("选择将要删除的模组文件", ["*.jar;模组文件 (*.jar)"], ["jar"], DisplayServer.FileDialogMode.FILE_DIALOG_MODE_OPEN_FILES)
-	var select_file: PackedStringArray = await file_dialog.file_selected
-	file_dialog.queue_free()
-	if select_file.is_empty(): return
-	# TODO: 此处应当使用更好的文件选择模式，防止用户选择意料之外的文件
+	if selected_object.is_empty():
+		print("INFO: 移除模组操作失败: 未选择配置")
+		return
 	
-	# 移除文件
-	FileOperator.remove_files(select_file)
-	
-	# 获取并移除模组信息
-	var file_name: PackedStringArray = FileOperator.get_file_name(select_file)
-	for i in file_name:
+	# 移除文件, 获取并移除模组信息
+	for i in selected_object:
+		var file_path: String = GameManager.get_execpath("modrepo/".path_join(i))
+		FileOperator.remove_file(file_path)
 		if GameManager.mod_data.has(i):
 			GameManager.mod_data.erase(i)
 		else:
@@ -88,5 +83,28 @@ func remove_mod() -> void:
 	GameManager.save_mod_data()
 	
 	# 刷新界面
-	hasModList.reload_mod_object(GameManager.mod_data)
+	generate_mod_object(GameManager.mod_data)
 	print("INFO: 界面刷新")
+
+
+func generate_mod_object(data: Dictionary[String, ModData]) -> void:
+	for old_node in object_list:
+		if is_instance_valid(old_node):
+			old_node.disconnect("object_selected", _object_selected)
+			old_node.disconnect("object_unselected", _object_unselected)
+	object_list.clear()
+	selected_object.clear()
+	hasModListNode.reload_mod_object(data)
+	object_list = hasModListNode.get_nodes()
+	for node in object_list:
+		node.object_selected.connect(_object_selected)
+		node.object_unselected.connect(_object_unselected)
+		
+
+func _object_selected(node: Node) -> void:
+	selected_object.append(node.id)
+	
+
+func _object_unselected(node: Node) -> void:
+	if object_list.is_empty(): return
+	selected_object.erase(node.id)
