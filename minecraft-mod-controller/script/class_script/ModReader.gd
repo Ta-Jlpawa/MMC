@@ -37,6 +37,7 @@ static func read_mod_information(path: String) -> ModData:
 
 
 ## 解析 Forge / NeoForge TOML 格式
+## TODO: 需要修改逻辑
 static func parse_mod_forge_toml(data: PackedByteArray) -> ModData:
 	var content: String = data.get_string_from_utf8()
 	var mod_data: ModData = ModData.new()

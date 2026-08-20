@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://ckx7ic6ss77yf" path="res://ui/mod_config/import_dir_ui.gd" id="3_b5iy2"]
 [ext_resource type="PackedScene" uid="uid://db2r40fvi1t7f" path="res://ui_object/has_mod_list/has_mod_list.tscn" id="4_4dm5x"]
 [ext_resource type="Script" uid="uid://clbdopsgn6tcb" path="res://ui/mod_config/create_new_ui.gd" id="5_c3skm"]
+[ext_resource type="Texture2D" uid="uid://c3g8mu1762dn7" path="res://icon.svg" id="5_f7436"]
+[ext_resource type="Script" uid="uid://b25rw6kje1bpd" path="res://ui/mod_config/choice_mc_folder.gd" id="6_kwo3a"]
 
 [node name="ModConfigUI" type="Control" unique_id=758910518 node_paths=PackedStringArray("mainUI", "createCfgUI", "importDirUI")]
 custom_minimum_size = Vector2(1150, 620)
@@ -21,7 +23,7 @@ mainUI = NodePath("主界面")
 createCfgUI = NodePath("创建新配置界面")
 importDirUI = NodePath("导入文件夹界面")
 
-[node name="主界面" type="Control" parent="." unique_id=2132792038 node_paths=PackedStringArray("hasModConfigList")]
+[node name="主界面" type="Control" parent="." unique_id=2132792038 node_paths=PackedStringArray("hasModConfigList", "minecraftFolderLineEdit", "choiceMcFolderRect")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +32,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_tp6rs")
 hasModConfigList = NodePath("已有配置列表")
+minecraftFolderLineEdit = NodePath("操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer/LineEdit")
+choiceMcFolderRect = NodePath("操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer/TextureRect")
 
 [node name="Label" type="Label" parent="主界面" unique_id=1715845388]
 layout_mode = 0
@@ -71,31 +75,64 @@ grow_vertical = 2
 theme_override_constants/margin_top = 75
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="VBoxContainer" parent="主界面/操作面板/MarginContainer" unique_id=1402648624]
+[node name="VBoxContainer" type="VBoxContainer" parent="主界面/操作面板/MarginContainer" unique_id=1402648624]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="主界面/操作面板/MarginContainer/VBoxContainer" unique_id=491385637]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=992205511]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "当前操作的MC文件夹"
+
+[node name="选择操作文件夹" type="PanelContainer" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1762725470]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹" unique_id=868098415]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer" unique_id=876028163]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "C/.minecraft"
+context_menu_enabled = false
+flat = true
+caret_blink = true
+
+[node name="TextureRect" type="TextureRect" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer" unique_id=680384471]
+layout_mode = 2
+texture = ExtResource("5_f7436")
+expand_mode = 3
+script = ExtResource("6_kwo3a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="主界面/操作面板/MarginContainer/VBoxContainer" unique_id=507241335]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=1625080543]
+[node name="Button" type="Button" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1625080543]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "创建新配置"
 
-[node name="Button2" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=327074346]
+[node name="Button2" type="Button" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer" unique_id=327074346]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "导入文件夹"
 
-[node name="Button3" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=585989227]
+[node name="Button3" type="Button" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer" unique_id=585989227]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "导入模组包ZIP"
 
-[node name="Button4" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=976334059]
+[node name="Button4" type="Button" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer" unique_id=976334059]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "删除方案"
 
-[node name="Button5" type="Button" parent="主界面/操作面板/MarginContainer/HBoxContainer" unique_id=122318044]
+[node name="Button5" type="Button" parent="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer" unique_id=122318044]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "应用方案"
@@ -466,10 +503,11 @@ offset_bottom = 92.0
 theme_override_font_sizes/font_size = 18
 text = "即将导入的模组如下"
 
-[connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button" to="." method="_on_create_mod_config"]
-[connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button2" to="." method="_on_import_dir_config"]
-[connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button3" to="." method="_on_import_zip_config"]
-[connection signal="pressed" from="主界面/操作面板/MarginContainer/HBoxContainer/Button4" to="." method="_on_remove_mod_config"]
+[connection signal="editing_toggled" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer/LineEdit" to="主界面" method="_on_set_minecraft_folder"]
+[connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button" to="." method="_on_create_mod_config"]
+[connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button2" to="." method="_on_import_dir_config"]
+[connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button3" to="." method="_on_import_zip_config"]
+[connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button4" to="." method="_on_remove_mod_config"]
 [connection signal="pressed" from="创建新配置界面/添加模组" to="创建新配置界面" method="_on_add_mod_pressed"]
 [connection signal="pressed" from="创建新配置界面/移除模组" to="创建新配置界面" method="_on_remove_mod_pressed"]
 [connection signal="pressed" from="创建新配置界面/操作面板/MarginContainer/HBoxContainer/确定" to="创建新配置界面" method="_on_continue_pressed"]

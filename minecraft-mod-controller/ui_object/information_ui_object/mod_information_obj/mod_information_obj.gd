@@ -38,10 +38,10 @@ func _gui_input(event: InputEvent) -> void:
 			## TODO: 右键查看信息逻辑
 
 
-func set_data(node_id: String, title: String, author: String, content: String, mc_version: String, mod_version: String) -> void:
+func set_data(node_id: String, title: String, author: Array[String], content: String, mc_version: String, mod_version: String) -> void:
 	id = node_id
 	title_label.text = title
-	author_label.text = author
+	author_label.text = ",".join(author)
 	content_label.text = content
 	mcver_label.text = mc_version
 	modver_label.text = mod_version

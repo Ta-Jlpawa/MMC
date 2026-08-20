@@ -12,6 +12,19 @@ func _ready() -> void:
 	_show_target_ui(mainUI)
 
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			# 处理LineEdit的聚焦问题
+			var focused := get_viewport().gui_get_focus_owner()
+
+			if focused is LineEdit:
+				if focused.is_editing(): # 注:此处检测防止在选中LineEdit时按下enter导致编辑模式退出但焦点仍在的问题，防止多余触发
+					focused.unedit()
+					focused.editing_toggled.emit(false)
+				focused.release_focus()
+
+
 func _on_create_mod_config():
 	create_mod_config()
 
