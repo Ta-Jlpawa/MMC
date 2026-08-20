@@ -13,6 +13,7 @@ static func read_mod_information(path: String) -> ModData:
 	var mod_data: ModData = null
 	
 	# NeoForge 模组
+	## TODO: 需要添加额外逻辑，防止神秘模组每行后面都行内注释
 	if reader.file_exists("META-INF/neoforge.mods.toml"): 
 		var bytes = reader.read_file("META-INF/neoforge.mods.toml")
 		mod_data = parse_mod_forge_toml(bytes, "NeoForge")
@@ -31,6 +32,14 @@ static func read_mod_information(path: String) -> ModData:
 	elif reader.file_exists("mcmod.info"):
 		var bytes = reader.read_file("mcmod.info")
 		mod_data = parse_mcmod_info(bytes)
+	
+	# 针对 Gradle 动态变量 (如 ${file.jarVersion})，回退尝试从 MANIFEST.MF 提取真实版本
+	if (mod_data.infomation.mod_version == "未知版本" or (mod_data.infomation.mod_version.begins_with("${")) \
+			and reader.file_exists("META-INF/MANIFEST.MF")):
+		var manifest_bytes: PackedByteArray = reader.read_file("META-INF/MANIFEST.MF")
+		var manifest_ver := _extract_manifest_version(manifest_bytes.get_string_from_utf8())
+		if not manifest_ver.is_empty():
+			mod_data.infomation.mod_version = manifest_ver
 	
 	reader.close()
 	return mod_data
@@ -131,6 +140,19 @@ static func _parse_authors(raw_authors) -> Array[String]:
 	return res
 
 
+## 通过 MANIFEST.MF 文件解析模组版本
+static func _extract_manifest_version(manifest_text: String) -> String:
+	for line in manifest_text.split("\n"): # 一次解析
+		var trimmed := line.strip_edges()
+		if trimmed.begins_with("Implementation-Version:"):
+			return trimmed.substr("Implementation-Version:".length()).strip_edges()
+	for line in manifest_text.split("\n"): # 二次解析
+		var trimmed := line.strip_edges()
+		if trimmed.begins_with("Specification-Version:"):
+			return trimmed.substr("Specification-Version:".length()).strip_edges()
+	return ""
+	
+
 ## 辅助方法，专用于从 TOML 字典结构中检索 Minecraft 版本约束
 static func _extract_mc_version_from_deps(toml_dict: Dictionary, target_mod_id: String) -> String:
 	if not toml_dict.has("dependencies"):
@@ -161,6 +183,7 @@ static func _extract_mc_version_from_deps(toml_dict: Dictionary, target_mod_id: 
 
 
 ## 辅助方法，_extract_mc_version_from_deps方法的辅助方法
+## TODO: 需要将原始版本字符串转换为版本列表
 static func _find_mc_in_dep_array(dep_array: Array) -> String:
 	for dep in dep_array:
 		if dep is Dictionary and str(dep.get("modId", "")) == "minecraft":

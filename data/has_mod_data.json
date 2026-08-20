@@ -27,6 +27,34 @@
 			"name": "Test1"
 		}
 	},
+	"[Neoforge]ctov-3.6.3.jar": {
+		"infomation": {
+			"author": [
+				"未知作者"
+			],
+			"description": "",
+			"icon_path": "",
+			"id": "",
+			"mc_version": "[1.21,)",
+			"mod_version": "未知版本",
+			"modloader": "NeoForge",
+			"name": "未知名称"
+		}
+	},
+	"abridged-2.0.2-neoforge-21.1.jar": {
+		"infomation": {
+			"author": [
+				"Apollo"
+			],
+			"description": "Bridges big and small across rivers.",
+			"icon_path": "",
+			"id": "abridged",
+			"mc_version": "[1.21, 1.21.1]",
+			"mod_version": "2.0.2",
+			"modloader": "NeoForge",
+			"name": "Abridged"
+		}
+	},
 	"another_furniture-neoforge-4.0.2.jar": {
 		"infomation": {
 			"author": [
@@ -52,7 +80,7 @@
 			"icon_path": "",
 			"id": "appleskin",
 			"mc_version": "未知版本",
-			"mod_version": "${file.jarVersion}",
+			"mod_version": "3.0.9+mc1.21",
 			"modloader": "NeoForge",
 			"name": "AppleSkin"
 		}
