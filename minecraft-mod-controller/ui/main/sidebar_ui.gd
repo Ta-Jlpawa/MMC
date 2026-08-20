@@ -23,3 +23,12 @@ func _on_button_pressed(button: BaseButton):
 	pressed_button = button
 	var index: int = all_button.find(button)
 	option_selected.emit(index)
+
+
+## 鼠标进入UI效果
+func _on_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+func _on_mouse_exited() -> void:
+	pass # Replace with function body.

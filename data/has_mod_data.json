@@ -1,13 +1,60 @@
 {
+	"AmbientSounds_NEOFORGE_v6.3.8_mc1.21.1.jar": {
+		"infomation": {
+			"author": [
+				"CreativeMD"
+			],
+			"description": "Expands minecraft's ambient sounds.",
+			"icon_path": "",
+			"id": "ambientsounds",
+			"mc_version": "[1.21.1,1.22)",
+			"mod_version": "6.3.8",
+			"modloader": "NeoForge",
+			"name": "AmbientSounds"
+		}
+	},
 	"Test.jar": {
 		"infomation": {
-			"author": "Tester",
+			"author": [
+				"未知作者"
+			],
 			"description": "测试",
 			"icon_path": "",
+			"id": "",
 			"mc_version": "1.21.1",
 			"mod_version": "1.11.11",
 			"modloader": "NeoForge",
 			"name": "Test1"
+		}
+	},
+	"another_furniture-neoforge-4.0.2.jar": {
+		"infomation": {
+			"author": [
+				"Starfish Studios",
+				"Crispytwig",
+				"Synthestra"
+			],
+			"description": "Decorating your home just got better! Another Furniture adds various furniture, with the goal of staying vanilla-styled and consistently sized, keeping normal blocks and player sizes in mind.",
+			"icon_path": "",
+			"id": "another_furniture",
+			"mc_version": "[1.21.1,)",
+			"mod_version": "4.0.2",
+			"modloader": "NeoForge",
+			"name": "Another Furniture"
+		}
+	},
+	"appleskin-neoforge-mc1.21-3.0.9.jar": {
+		"infomation": {
+			"author": [
+				"squeek"
+			],
+			"description": "Adds various food-related HUD improvements",
+			"icon_path": "",
+			"id": "appleskin",
+			"mc_version": "未知版本",
+			"mod_version": "${file.jarVersion}",
+			"modloader": "NeoForge",
+			"name": "AppleSkin"
 		}
 	}
 }
