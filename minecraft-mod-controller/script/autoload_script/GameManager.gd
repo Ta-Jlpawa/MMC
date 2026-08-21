@@ -106,6 +106,7 @@ func _get_data() -> void:
 func _get_minecraft_folder_path() -> void:
 	if settings.minecraft_folder == "":
 		var appdata_path := OS.get_environment("APPDATA")
+		appdata_path = appdata_path.replace("\\", "/") # 踩坑: 统一格式
 		var path = appdata_path.path_join(".minecraft")
 		if DirAccess.dir_exists_absolute(path):
 			minecraft_path = path

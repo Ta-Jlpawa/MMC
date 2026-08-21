@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bb7ugaf2qgtnp"]
 
 [ext_resource type="Script" uid="uid://dngsqixq58ao2" path="res://ui/start/start_ui.gd" id="1_esd36"]
-[ext_resource type="Script" uid="uid://cpgf3v1laknpg" path="res://ui/main/test_button_1.gd" id="2_ra4qg"]
 [ext_resource type="PackedScene" uid="uid://cx8dgpxtmjxlu" path="res://ui_object/has_mod_config_list/has_mod_config_list.tscn" id="3_ra4qg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0e8e"]
@@ -40,20 +39,9 @@ text = "Minecraft_Mod_Controller"
 fit_content = true
 scroll_active = false
 
-[node name="TestButton_执行C++" type="Button" parent="." unique_id=1753543635]
-layout_mode = 0
-offset_left = 892.0
-offset_top = 14.0
-offset_right = 1091.0
-offset_bottom = 68.0
-text = "测试按钮"
-script = ExtResource("2_ra4qg")
-
 [node name="已有配置列表" parent="." unique_id=366519974 instance=ExtResource("3_ra4qg")]
 layout_mode = 0
 offset_left = 306.0
 offset_top = 145.0
 offset_right = 1064.0
 offset_bottom = 583.0
-
-[connection signal="pressed" from="TestButton_执行C++" to="TestButton_执行C++" method="_execute_cpp"]

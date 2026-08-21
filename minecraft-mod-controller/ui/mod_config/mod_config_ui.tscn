@@ -35,6 +35,13 @@ hasModConfigList = NodePath("已有配置列表")
 minecraftFolderLineEdit = NodePath("操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer/LineEdit")
 choiceMcFolderRect = NodePath("操作面板/MarginContainer/VBoxContainer/VBoxContainer2/选择操作文件夹/HBoxContainer/TextureRect")
 
+[node name="已有配置列表" parent="主界面" unique_id=366519974 instance=ExtResource("1_uyhkg")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 103.0
+offset_right = 828.0
+offset_bottom = 621.0
+
 [node name="Label" type="Label" parent="主界面" unique_id=1715845388]
 layout_mode = 0
 offset_left = 49.0
@@ -44,15 +51,9 @@ offset_bottom = 94.0
 theme_override_font_sizes/font_size = 40
 text = "模组方案"
 
-[node name="已有配置列表" parent="主界面" unique_id=366519974 instance=ExtResource("1_uyhkg")]
-layout_mode = 0
-offset_left = 272.0
-offset_right = 920.0
-offset_bottom = 621.0
-
 [node name="操作面板" type="Panel" parent="主界面" unique_id=315993626]
 layout_mode = 0
-offset_left = 925.0
+offset_left = 837.0
 offset_top = 1.0
 offset_right = 1149.0
 offset_bottom = 621.0
@@ -508,6 +509,7 @@ text = "即将导入的模组如下"
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button2" to="." method="_on_import_dir_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button3" to="." method="_on_import_zip_config"]
 [connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button4" to="." method="_on_remove_mod_config"]
+[connection signal="pressed" from="主界面/操作面板/MarginContainer/VBoxContainer/VBoxContainer/Button5" to="." method="_on_use_mod_config"]
 [connection signal="pressed" from="创建新配置界面/添加模组" to="创建新配置界面" method="_on_add_mod_pressed"]
 [connection signal="pressed" from="创建新配置界面/移除模组" to="创建新配置界面" method="_on_remove_mod_pressed"]
 [connection signal="pressed" from="创建新配置界面/操作面板/MarginContainer/HBoxContainer/确定" to="创建新配置界面" method="_on_continue_pressed"]

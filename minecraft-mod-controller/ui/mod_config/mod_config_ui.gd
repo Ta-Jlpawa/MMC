@@ -41,6 +41,10 @@ func _on_remove_mod_config():
 	remove_mod_config()
 
 
+func _on_use_mod_config():
+	use_mod_config()
+
+
 ## 创建新模组配置
 func create_mod_config() -> void:
 	createCfgUI.init_ui()
@@ -69,6 +73,8 @@ func create_mod_config() -> void:
 				printerr("ERROR: 异常:文件复制失败!")
 			_:
 				pass
+		for i in jar_path: # 导入仓库后，路径应修改为仓库路径
+			jar_path[i] = GameManager.get_execpath("modrepo/".path_join(i))
 		GameManager.append_mod_data(mod_data)
 		GameManager.save_mod_data()
 		print("INFO: %s 个模组已导入模组仓库" % [mod_data.size()])
@@ -94,6 +100,7 @@ func create_mod_config() -> void:
 	print("INFO: 添加配置操作完成")
 
 
+## 导入文件夹
 func import_dir_config() -> void:
 	# 选择文件
 	var file_dialog: CustomFileDialog = CustomFileDialog.new()
@@ -120,7 +127,6 @@ func import_dir_config() -> void:
 		_show_target_ui(mainUI)
 		print("INFO: 用户选择取消导入")
 		return
-	
 	# 按照选择决定是否导入模组仓库
 	if importDirUI.get_option_state():
 		var file_copier: FileCopyProgressPopup = fileCopyProgressPopup.instantiate()
@@ -135,6 +141,8 @@ func import_dir_config() -> void:
 				printerr("ERROR: 异常:文件复制失败!")
 			_:
 				pass
+		for i in jar_path: # 导入仓库后，路径应修改为仓库路径
+			jar_path[i] = GameManager.get_execpath("modrepo/".path_join(i))
 		GameManager.append_mod_data(mod_data)
 		GameManager.save_mod_data()
 		print("INFO: %s 个模组已导入模组仓库" % [mod_data.size()])
@@ -161,6 +169,7 @@ func import_dir_config() -> void:
 	print("INFO: 导入配置操作完成")
 
 
+## 导入整合包
 func import_zip_config() -> void:
 	print("INFO: 该方法未完成")
 	return
@@ -196,6 +205,79 @@ func remove_mod_config() -> void:
 	mainUI.generate_mod_object()
 	mainUI.unselected_all()
 
+
+## 在模组文件夹中应用配置
+func use_mod_config() -> void:
+	# 选择检查
+	var selected_cfg: Array[String] = mainUI.get_selected_node()
+	if selected_cfg.is_empty():
+		print("INFO: [ModConfigUI] 应用配置操作失败: 未选择配置")
+		return
+	if selected_cfg.size() > 1:
+		print("INFO: [ModConfigUI] 一次只能应用一个配置!")
+		mainUI.unselected_all()
+		return
+	var mod_list: Dictionary = GameManager.modcfg_data[selected_cfg[0]].has_mod_list # 获得模组列表, 格式为 <模组文件名> : <模组文件路径>
+	
+	#var access: DirAccess = DirAccess.open(GameManager.minecraft_path)
+	#if access == null:
+		#printerr("ERROR: [ModConfigUI] 打开文件夹错误: %s" % [DirAccess.get_open_error()])
+		#return
+	
+	var mod_dir_path: String = GameManager.minecraft_path.path_join("mods")
+	# 检查文件夹是否存在
+	if !DirAccess.dir_exists_absolute(mod_dir_path):
+		print("INFO: [ModConfigUI] mod文件夹不存在，尝试创建: %s" % [mod_dir_path])
+		DirAccess.make_dir_absolute(mod_dir_path)
+		
+	var mod_paths: Array[String] = []
+	for mod_name in mod_list:
+		var mod_path: String = mod_list[mod_name]
+		if !FileAccess.file_exists(mod_path): # 检查模组是否存在
+			printerr("ERROR: [ModConfigUI] mod文件不存在: %s" % [mod_path])
+			return
+		mod_paths.append(mod_path)
+	# 复制文件
+	var file_copier: FileCopyProgressPopup = fileCopyProgressPopup.instantiate()
+	self.add_child(file_copier)
+	print(mod_dir_path)
+	file_copier.start_copy(mod_paths, mod_dir_path)
+	var copy_state: FileCopyProgressPopup.COPY_STATE = await file_copier.copy_finish
+	file_copier.queue_free()
+	match copy_state:
+		FileCopyProgressPopup.COPY_STATE.NOCHANGE:
+			print("INFO: 文件没有发生改变")
+		FileCopyProgressPopup.COPY_STATE.ERROR:
+			printerr("ERROR: 异常:文件复制失败!")
+		_:
+			pass
+	
+	## 尝试创建符号链接
+	## TODO: 需要解决权限问题再启用
+	#for mod_name in mod_list:
+		#var mod_path: String = mod_list[mod_name]
+		#if !FileAccess.file_exists(mod_path): # 检查模组是否存在
+			#printerr("ERROR: [ModConfigUI] mod文件不存在: %s" % [mod_path])
+			#return
+		#var error := access.create_link(mod_path, mod_dir_path)
+		#if error == OK:
+			#print("INFO: [ModConfigUI] 创建符号链接成功")
+		#else:
+			#if OS.get_name() == "Windows": # Windows创建失败可能是因为没有权限，尝试调用cmd创建
+				#print("INFO: [ModConfigUI] 创建失败, 尝试使用CMD创建符号链接，目标路径: %s ，模组路径: %s" % [mod_dir_path, mod_path])
+				##var bat: FileAccess = FileAccess.open(GameManager.get_execpath("tools/create_link_tool.bat"), FileAccess.WRITE)
+				##bat.store_string()
+				#var output: Array = []
+				#var is_success: int = OS.execute("runas", ["cmd.exe", "/C", "mklink", mod_dir_path.replace("/", "\\"), mod_path.replace("/", "\\")], output, true)
+				#print("INFO: [ModConfigUI] CMD输出: %s" % [output])
+				#if is_success == -1:
+					#printerr("ERROR: [ModConfigUI] 尝试使用CMD创建符号链接失败： %s", [output])
+				#
+			#else:
+				#printerr("ERROR: [ModConfigUI] 创建符号链接失败：", error)
+			
+	mainUI.unselected_all()
+	print("INFO: [ModConfigUI] 应用配置操作完成")
 
 func _show_target_ui(node: Node):
 	for i in self.get_children():

@@ -61,6 +61,9 @@ static func parse(toml_text: String) -> Dictionary:
 		# 忽略空行与行首注释
 		if line.is_empty() or line.begins_with("#"):
 			continue
+		
+		# 剔除行尾注释
+		line = _strip_comment(line)
 
 		# 匹配 Section Headers: [[array_table]] 或 [table]
 		if line.begins_with("["):
@@ -77,9 +80,6 @@ static func parse(toml_text: String) -> Dictionary:
 		if eq_idx != -1:
 			var key := line.left(eq_idx).strip_edges()
 			var val_str := line.substr(eq_idx + 1).strip_edges()
-
-			# 剔除行尾注释
-			val_str = _strip_comment(val_str)
 
 			# 检查是否开启多行文本
 			if val_str.begins_with("'''") or val_str.begins_with("\"\"\""):
@@ -131,6 +131,7 @@ static func _get_or_create_array_table(root: Dictionary, path_str: String) -> Di
 	return new_dict
 
 
+## 剔除行内注释
 static func _strip_comment(val: String) -> String:
 	var in_quotes := false
 	var quote_char := ""

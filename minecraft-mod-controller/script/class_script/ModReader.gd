@@ -13,7 +13,6 @@ static func read_mod_information(path: String) -> ModData:
 	var mod_data: ModData = null
 	
 	# NeoForge 模组
-	## TODO: 需要添加额外逻辑，防止神秘模组每行后面都行内注释
 	if reader.file_exists("META-INF/neoforge.mods.toml"): 
 		var bytes = reader.read_file("META-INF/neoforge.mods.toml")
 		mod_data = parse_mod_forge_toml(bytes, "NeoForge")

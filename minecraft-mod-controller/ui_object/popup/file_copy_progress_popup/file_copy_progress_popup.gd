@@ -35,9 +35,8 @@ func _ready() -> void:
 func start_copy(files_to_copy: Array[String], target_folder: String) -> void:
 	# 检查是否存在文件重复
 	var has_repetitive: Array[String] = []
-	var base_path: String = GameManager.get_execpath("modrepo")
 	for file in files_to_copy:
-		if FileAccess.file_exists(base_path.path_join(file.get_file())):
+		if FileAccess.file_exists(target_folder.path_join(file.get_file())):
 			has_repetitive.append(file)
 	self.show()
 	if !has_repetitive.is_empty():

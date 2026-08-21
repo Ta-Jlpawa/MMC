@@ -116,8 +116,6 @@ static func _convert_value(val: Variant, prop_info: Dictionary, current_val: Var
 						target_array.append(item)
 				else:
 					target_array.append(item)
-			print(target_array)
-			print(target_array.is_typed())
 			
 			if element_class_name == "String": # 踩坑: 最终类型检查，防止返回类型非强类型导致 dict_to_resource set 赋值失败的情况
 				var r_target_array: Array[String]

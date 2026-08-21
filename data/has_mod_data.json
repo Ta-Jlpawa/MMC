@@ -1,4 +1,18 @@
 {
+	"AdvancedPeripherals-1.20.1-0.7.48r.jar": {
+		"infomation": {
+			"author": [
+				"Srendi"
+			],
+			"description": "Advanced Peripherals provides multiple extensions for ComputerCraft in form of Peripherals, Pocket Upgrades, Turtles or new gear.\nIt also integrates with multiple third party mods.",
+			"icon_path": "",
+			"id": "advancedperipherals",
+			"mc_version": "[1.20.1,)",
+			"mod_version": "0.7.48r",
+			"modloader": "Forge",
+			"name": "Advanced Peripherals"
+		}
+	},
 	"AmbientSounds_NEOFORGE_v6.3.8_mc1.21.1.jar": {
 		"infomation": {
 			"author": [
@@ -13,32 +27,18 @@
 			"name": "AmbientSounds"
 		}
 	},
-	"Test.jar": {
-		"infomation": {
-			"author": [
-				"未知作者"
-			],
-			"description": "测试",
-			"icon_path": "",
-			"id": "",
-			"mc_version": "1.21.1",
-			"mod_version": "1.11.11",
-			"modloader": "NeoForge",
-			"name": "Test1"
-		}
-	},
 	"[Neoforge]ctov-3.6.3.jar": {
 		"infomation": {
 			"author": [
-				"未知作者"
+				"ChoiceTheorem"
 			],
-			"description": "",
+			"description": "Enhances and creates new villages and pillager outposts, that perfectly fit into your Minecraft world.",
 			"icon_path": "",
-			"id": "",
+			"id": "ctov",
 			"mc_version": "[1.21,)",
-			"mod_version": "未知版本",
+			"mod_version": "3.6.3",
 			"modloader": "NeoForge",
-			"name": "未知名称"
+			"name": "ChoiceTheorem's Overhauled Village"
 		}
 	},
 	"abridged-2.0.2-neoforge-21.1.jar": {

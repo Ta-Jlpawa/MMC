@@ -2,6 +2,9 @@ extends RefCounted
 ## 文件操作类，封装一些文件操作用逻辑，文件复制相关应当使用 FileCopier.
 class_name FileOperator
 
+enum ExecuteError {
+	OPEN_DIR_ERROR
+}
 
 ## 将单个文件移动到回收站
 static func remove_file(file_path: String):
@@ -29,3 +32,13 @@ static func get_file_name(file_path: PackedStringArray) -> PackedStringArray:
 	for i in file_path:
 		file_name.append(i.get_file())
 	return file_name
+
+
+## 为单个文件建符号路径
+static func create_link(open_dir: String, file_path: String) -> void:
+	pass
+
+
+## 为多个文件建符号路径
+static func create_links(open_dir: String, file_paths: PackedStringArray) -> void:
+	pass
