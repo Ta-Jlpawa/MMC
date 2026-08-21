@@ -102,10 +102,10 @@ static func _convert_value(val: Variant, prop_info: Dictionary, current_val: Var
 	# 数组 (TYPE_ARRAY)
 	elif prop_type == TYPE_ARRAY:
 		if val is Array:
-			var target_array := []
+			var target_array: Array = []
 			# 获取强类型数组中的类型名称 (例如 Array[ConfigInformation] 中的 ConfigInformation)
 			var element_class_name := _extract_array_element_class(hint_string)
-			
+
 			for item in val:
 				if item is Dictionary and not element_class_name.is_empty():
 					# 如果数组元素是字典，且声明了元素 Resource 类型，进行递归转换
@@ -116,6 +116,14 @@ static func _convert_value(val: Variant, prop_info: Dictionary, current_val: Var
 						target_array.append(item)
 				else:
 					target_array.append(item)
+			print(target_array)
+			print(target_array.is_typed())
+			
+			if element_class_name == "String": # 踩坑: 最终类型检查，防止返回类型非强类型导致 dict_to_resource set 赋值失败的情况
+				var r_target_array: Array[String]
+				r_target_array.assign(target_array)
+				return r_target_array
+				
 			return target_array
 
 	# 字典 (TYPE_DICTIONARY)

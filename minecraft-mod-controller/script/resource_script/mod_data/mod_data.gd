@@ -13,4 +13,5 @@ static func load_json_to_globalres(path: String) -> Dictionary[String, ModData]:
 		var mod_data: ModData = ModData.new()
 		mod_data = JsonLoader.dict_to_resource(dict[i], mod_data)
 		mod_data_dict[i] = mod_data
+		print(mod_data.infomation.author)
 	return mod_data_dict
